@@ -4,6 +4,8 @@ A BASIC interperter written in Elxiir
 
 Basic Lang Spec
 http://media.salford-systems.com/pdf/spm7/BasicProgLang.pdf
+https://en.wikipedia.org/wiki/BASIC
+https://en.wikipedia.org/wiki/Tiny_BASIC
 
 Good articles
 https://andrealeopardi.com/posts/tokenizing-and-parsing-in-elixir-using-leex-and-yecc/
@@ -13,6 +15,12 @@ https://lark-parser.readthedocs.io/en/latest/parsers/
 
 The Elixir Parser
 https://github.com/elixir-lang/elixir/blob/master/lib/elixir/src/elixir_parser.yrl
+
+The Elixir Tokenizer
+https://github.com/elixir-lang/elixir/blob/master/lib/elixir/src/elixir_tokenizer.erl
+
+Building an interperter
+https://ruslanspivak.com/lsbasi-part1/
 
 Notes
 

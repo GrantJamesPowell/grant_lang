@@ -1,18 +1,15 @@
 defmodule Basex do
-  @moduledoc """
-  Documentation for `Basex`.
-  """
+  def tokenize(code) when is_binary(code) do
+    code |> to_charlist() |> tokenize()
+  end
 
-  @doc """
-  Hello world.
+  def tokenize(code) do
+    {:ok, tokens, _} = :basic_tokenizer.string(code)
+  end
 
-  ## Examples
-
-      iex> Basex.hello()
-      :world
-
-  """
-  def hello do
-    :world
+  def parse(code) do
+    {:ok, tokens, _} = tokenize(code)
+    {:ok, result} = :basic_parser.parse(tokens)
+    result
   end
 end
