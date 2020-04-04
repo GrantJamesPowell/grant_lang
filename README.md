@@ -8,6 +8,12 @@ http://media.salford-systems.com/pdf/spm7/BasicProgLang.pdf
 Good articles
 https://andrealeopardi.com/posts/tokenizing-and-parsing-in-elixir-using-leex-and-yecc/
 
+Understanding Parser Basics
+https://lark-parser.readthedocs.io/en/latest/parsers/
+
+The Elixir Parser
+https://github.com/elixir-lang/elixir/blob/master/lib/elixir/src/elixir_parser.yrl
+
 Notes
 
 Vocab:
