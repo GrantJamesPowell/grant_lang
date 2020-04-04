@@ -8,6 +8,7 @@ WHITESPACE = [\s\t\n\r]
 Rules.
 
 {WHITESPACE}+ : skip_token.
+; : {token, {statement_end, TokenLine}}.
 
 % Literals
 {FLOAT}       : {token, {float, TokenLine, list_to_float(TokenChars)}}.

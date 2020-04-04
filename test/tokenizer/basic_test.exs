@@ -2,12 +2,14 @@ defmodule Basex.Tokenizer.BasicTest do
   use ExUnit.Case, async: true
 
   [
+    # Program Constructs
+    {"1; 2", [{:int, 1, 1}, {:statement_end, 1}, {:int, 1, 2}]},
+    {"  \n\s\t", []},
     # Literals
     {"true", [{:bool, 1, true}]},
     {"false", [{:bool, 1, false}]},
     {"1", [{:int, 1, 1}]},
     {"1.0", [{:float, 1, 1.0}]},
-    {"  \n\s\t", []},
     # Groupings
     {"(1)", [{:"(", 1}, {:int, 1, 1}, {:")", 1}]},
     {"[2]", [{:"[", 1}, {:int, 1, 2}, {:"]", 1}]},
