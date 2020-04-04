@@ -5,6 +5,18 @@ A BASIC interperter written in Elxiir
 Basic Lang Spec
 http://media.salford-systems.com/pdf/spm7/BasicProgLang.pdf
 
+Good articles
+https://andrealeopardi.com/posts/tokenizing-and-parsing-in-elixir-using-leex-and-yecc/
+
+Notes
+
+Vocab:
+A lexer will tokenize a sequence of bytes.
+
+The syntax of a leex rule is this:
+
+Regular expression : Erlang code.
+
 ## Installation
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed
