@@ -3,6 +3,8 @@ defmodule Basex.Tokenizer.BasicTest do
 
   [
     # Literals
+    {"true", [{:bool, 1, true}]},
+    {"false", [{:bool, 1, false}]},
     {"1", [{:int, 1, 1}]},
     {"1.0", [{:float, 1, 1.0}]},
     {"  \n\s\t", []},

@@ -3,6 +3,7 @@ Definitions.
 FLOAT      = [0-9]+\.[0-9]+
 INT        = [0-9]+
 WHITESPACE = [\s\t\n\r]
+BOOL       = (true|false)
 
 Rules.
 
@@ -11,6 +12,7 @@ Rules.
 % Literals
 {FLOAT}       : {token, {float, TokenLine, list_to_float(TokenChars)}}.
 {INT}         : {token, {int, TokenLine, list_to_integer(TokenChars)}}.
+{BOOL}        : {token, {bool, TokenLine, list_to_existing_atom(TokenChars)}}.
 
 % Groupings
 \[ : {token, {'[', TokenLine}}.
