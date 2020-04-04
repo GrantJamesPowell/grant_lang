@@ -2,8 +2,8 @@ Definitions.
 
 FLOAT      = [0-9]+\.[0-9]+
 INT        = [0-9]+
-WHITESPACE = [\s\t\n\r]
 BOOL       = (true|false)
+WHITESPACE = [\s\t\n\r]
 
 Rules.
 

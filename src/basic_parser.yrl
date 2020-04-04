@@ -1,16 +1,11 @@
-Nonterminals list elems elem.
-Terminals '[' ']' ',' int atom.
-Rootsymbol list.
+Nonterminals program.
+Terminals int float bool.
 
-list -> '[' ']'       : [].
-list -> '[' elems ']' : '$2'.
+Rootsymbol program.
 
-elems -> elem           : ['$1'].
-elems -> elem ',' elems : ['$1'|'$3'].
-
-elem -> int  : extract_token('$1').
-elem -> atom : extract_token('$1').
-elem -> list : '$1'.
+program -> int : extract_token('$1').
+program -> float : extract_token('$1').
+program -> bool : extract_token('$1').
 
 Erlang code.
 
