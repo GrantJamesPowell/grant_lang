@@ -1,15 +1,12 @@
-Nonterminals statement statements expression.
-Terminals int float bool statement_end.
+Nonterminals expression expressions.
+Terminals int float bool comparator statement_end.
 
-Rootsymbol statements.
+Rootsymbol expressions.
 
-statements -> statement statement_end statements : ['$1' | '$3'].
-statements -> statement statement_end : ['$1'].
+expressions -> expression statement_end expressions : ['$1' | '$3'].
+expressions -> expression statement_end : ['$1'].
 
-statement -> int : extract_token('$1').
-statement -> bool : extract_token('$1').
-statement -> float : extract_token('$1').
-
+expression -> expression comparator expression : {extract_token('$2'), '$1', '$3'}.
 expression -> int : extract_token('$1').
 expression -> bool : extract_token('$1').
 expression -> float : extract_token('$1').
