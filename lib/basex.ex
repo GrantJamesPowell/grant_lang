@@ -28,15 +28,16 @@ defmodule Basex do
   end
 
   def evalutate_expression({operator, left, right}, state)
-      when operator in [:+, :-, :*, :/, :"**"] do
+      when operator in [:+, :-, :*, :/, :"**", :<, :>, :<=, :>=, :!=, :==, :||, :&&] do
     {:ok, state, lhs} = evalutate_expression(left, state)
     {:ok, state, rhs} = evalutate_expression(right, state)
 
     result =
-      if operator == :"**" do
-        :math.pow(lhs, rhs)
-      else
-        apply(Kernel, operator, [lhs, rhs])
+      case operator do
+        :"**" -> :math.pow(lhs, rhs)
+        :|| -> (lhs || rhs)
+        :&& -> (lhs && rhs)
+        _ -> apply(Kernel, operator, [lhs, rhs])
       end
 
     {:ok, state, result}

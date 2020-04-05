@@ -39,9 +39,6 @@ Regular expression : Erlang code.
   - [ ] Heredoc
   - [ ] escaped newlines
   - [ ] string concat (<<)
-- [ ] Comparators
-  - [x] > < <= >=
-  - [ ] == !=
 - [ ] Negative Numbers
 - [ ] Maps
   - [ ] Literals
@@ -62,11 +59,18 @@ Regular expression : Erlang code.
   - [ ] Define functions
   - [ ] Functions as values?
   - [ ] Anon funcs?
+- [ ] Have && and || short circuit
 
 # DONE
 
 - [x] Comments
   - [x] nested comments
+- [x] Comparators / Boolean Logic
+  - [x] > < <= >=
+  - [x] == !=
+  - [x] && ||
+- [x] Math operators
+  - [x] `+ - / * **`
 
 ## Sample
 
@@ -102,7 +106,7 @@ $dict <- &{
 // indexing
 $array[$index]
 $dict[$key]
-$dict.key
+$dict.key // only for string keys
 
 // comparison / boolean logic
 $result <- (1 < 2) && (3 >= 5) || ( 5 != 6);

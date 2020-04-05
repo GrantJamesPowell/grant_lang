@@ -26,6 +26,7 @@ defmodule Basex.Tokenizer.BasicTest do
     {"8 == 8", [{:int, 1, 8}, {:operator, 1, :==}, {:int, 1, 8}]},
     {"9 <= 9", [{:int, 1, 9}, {:operator, 1, :<=}, {:int, 1, 9}]},
     {"10 >= 10", [{:int, 1, 10}, {:operator, 1, :>=}, {:int, 1, 10}]},
+    {"11 != 12", [{:int, 1, 11}, {:operator, 1, :!=}, {:int, 1, 12}]},
     # Boolean Logic
     {"true || true", [{:bool, 1, true}, {:operator, 1, :||}, {:bool, 1, true}]},
     {"false && true", [{:bool, 1, false}, {:operator, 1, :&&}, {:bool, 1, true}]},
