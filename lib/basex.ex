@@ -27,10 +27,19 @@ defmodule Basex do
     {:ok, result}
   end
 
-  def evalutate_expression({:+, left, right}, state) do
+  def evalutate_expression({operator, left, right}, state)
+      when operator in [:+, :-, :*, :/, :"**"] do
     {:ok, state, lhs} = evalutate_expression(left, state)
     {:ok, state, rhs} = evalutate_expression(right, state)
-    {:ok, state, lhs + rhs}
+
+    result =
+      if operator == :"**" do
+        :math.pow(lhs, rhs)
+      else
+        apply(Kernel, operator, [lhs, rhs])
+      end
+
+    {:ok, state, result}
   end
 
   def evalutate_expression({:<-, {:var, var}, expression}, state) do

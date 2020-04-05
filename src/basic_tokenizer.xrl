@@ -5,7 +5,7 @@ INT        = [0-9]+
 BOOL       = (true|false)
 WHITESPACE = [\s\t\n\r]
 COMPARATOR = (<|<=|==|>=|>)
-ARITHMETIC_OPERATOR = (\+|\*|\/|-)
+ARITHMETIC_OPERATOR = (\*\*|\+|\*|\/|-)
 BOOLEAN_OPERATOR = (&&|\|\|)
 IDENTIFIER = \$[a-zA-Z]+[a-zA-Z0-9]*
 

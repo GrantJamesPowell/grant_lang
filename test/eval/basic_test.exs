@@ -3,6 +3,7 @@ defmodule Basex.Evaluator.BasicTest do
 
   [
     {"1 + 1;", 2},
+    {"(((3 * 4) + 6) / 2) ** 2;", 81},
     {"$a <- 1; $a + 2;", 3}
   ]
   |> Enum.each(fn {code, result} ->
