@@ -6,7 +6,7 @@ defmodule Basex.Tokenizer.BasicTest do
     {"1; 2", [{:int, 1, 1}, {:statement_end, 1}, {:int, 1, 2}]},
     {"if (true) { 1; }",
      [
-       {:if_block, 1},
+       {:if, 1},
        {:"(", 1},
        {:bool, 1, true},
        {:")", 1},
@@ -17,7 +17,7 @@ defmodule Basex.Tokenizer.BasicTest do
      ]},
     {"if (true || false) { 1; } else { 2; }",
      [
-       {:if_block, 1},
+       {:if, 1},
        {:"(", 1},
        {:bool, 1, true},
        {:operator, 1, :||},
@@ -27,7 +27,7 @@ defmodule Basex.Tokenizer.BasicTest do
        {:int, 1, 1},
        {:statement_end, 1},
        {:"}", 1},
-       {:else_block, 1},
+       {:else, 1},
        {:"{", 1},
        {:int, 1, 2},
        {:statement_end, 1},

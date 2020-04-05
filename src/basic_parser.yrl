@@ -2,7 +2,7 @@ Nonterminals block map_pairs expression expressions comma_seperated_expressions.
 Terminals '[' ']' '(' ')' '{' '}' ','
    var int float nil bool string operator identifier
    map_start fat_right_arrow dot
-   if_block else_block statement_end.
+   'if' 'else' statement_end.
 
 Rootsymbol expressions.
 
@@ -27,8 +27,8 @@ expression -> expression operator expression : {extract_token('$2'), '$1', '$3'}
 expression -> '(' expression ')' : '$2'.
 
 % If
-expression -> if_block expression block else_block block : {if_expression, '$2', '$3', '$5'}.
-expression -> if_block expression block : {if_expression, '$2', '$3', [nil]}.
+expression -> 'if' expression block 'else' block : {if_expression, '$2', '$3', '$5'}.
+expression -> 'if' expression block : {if_expression, '$2', '$3', [nil]}.
 
 % code blocks
 block -> '{' expressions '}' : '$2'.

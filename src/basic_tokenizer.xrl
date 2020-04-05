@@ -18,8 +18,9 @@ Rules.
 {BLOCK_COMMENT} : skip_token.
 
 % Keywords
-if   : {token, {if_block, TokenLine}}.
-else : {token, {else_block, TokenLine}}.
+if   : {token, {'if', TokenLine}}.
+else : {token, {'else', TokenLine}}.
+for  : {token, {'for', TokenLine}}.
 \.   : {token, {dot, TokenLine}}.
 <-   : {token, {operator, TokenLine, list_to_atom(TokenChars)}}.
 ;    : {token, {statement_end, TokenLine}}.
