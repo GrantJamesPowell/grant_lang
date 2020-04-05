@@ -34,8 +34,18 @@ Regular expression : Erlang code.
 # TODO
 
 - [x] Comments
+  - [ ] nested comments
+- [ ] Strings
+  - [ ] Double quote
+  - [ ] Single quote
+  - [ ] Heredoc
+  - [ ] escaped newlines
 - [ ] Negative Numbers
 - [ ] Maps
+  - [ ] Literals
+  - [ ] Dot access
+- [ ] Arrays
+  - [ ] << (shovel) operator
 - [ ] If statements
 - [ ] For loops
   - [ ] Break Statement
@@ -64,8 +74,8 @@ while ($bar) {
 };
 
 // for loop
-for ($i <= $foo) { 
-  if ($i > 2) { @echo($i) } else { break; }; 
+for ($i <= $foo) {
+  if ($i > 2) { @echo($i) } else { break; };
 };
 
 // assignment from an if statement
