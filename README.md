@@ -31,20 +31,41 @@ The syntax of a leex rule is this:
 
 Regular expression : Erlang code.
 
-## Installation
+# TODO
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `basex` to your list of dependencies in `mix.exs`:
+- [ ] Comments
+- [ ] Negative Numbers
+- [ ] Maps
+- [ ] If statements
+- [ ] For loops
+  - [ ] Break Statement
+- [ ] While Loops
+- [ ] Functions
+  - [ ] Call "stdlib functions"
+  - [ ] Define functions
+  - [ ] Functions as values?
+  - [ ] Anon funcs?
 
-```elixir
-def deps do
-  [
-    {:basex, "~> 0.1.0"}
-  ]
-end
+## Sample
+
+```grantscript
+// I'm a comment!
+
+// assignment
+$foo <- [1,2,3];
+$bar <- true || false;
+
+// while loop
+while ($bar) {
+  // if statement
+  if ($RAND > 0.5) { break; };
+};
+
+// for loop
+for ($i <= $foo) { 
+  if ($i > 2) { @echo($i) } else { break; }; 
+};
+
+// assignment from an if statement
+$result <- if ($RAND > 0.5) { 4; } else { 5; };
 ```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/basex](https://hexdocs.pm/basex).
-
