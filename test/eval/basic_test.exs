@@ -4,13 +4,14 @@ defmodule Basex.Evaluator.BasicTest do
   [
     {"1 + 1;", 2},
     {"\"foo\";", "foo"},
+    {"$foo <- &{ 1 => 1 + 2 }; $foo;", %{1 => 3}},
     {"(((3 * 4) + 6) / 2) ** 2;", 81},
     {"(1 != 2) || (3 == 4) || ((5 > 6) && (7 < 8)) || (10 <= 11) && (12 >= 13);", true},
     {"$a <- 1; $a + 2;", 3}
   ]
   |> Enum.each(fn {code, result} ->
-    test "code \"#{code}\" evaluates to (#{result})" do
-      assert Basex.eval(unquote(code)) == {:ok, unquote(result)}
+    test "code \"#{code}\" evaluates to (#{inspect(result)})" do
+      assert Basex.eval(unquote(code)) == {:ok, unquote(Macro.escape(result))}
     end
   end)
 end

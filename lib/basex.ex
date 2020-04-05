@@ -67,6 +67,18 @@ defmodule Basex do
     end
   end
 
+  def evalutate_expression({:map, key_pairs}, state) do
+    map =
+      key_pairs
+      |> Map.new(fn {key_expression, val_expression} ->
+        {:ok, _state, key} = evalutate_expression(key_expression, state)
+        {:ok, _state, val} = evalutate_expression(val_expression, state)
+        {key, val}
+      end)
+
+    {:ok, state, map}
+  end
+
   def evalutate_expression(number, state) when is_number(number), do: {:ok, state, number}
   def evalutate_expression(string, state) when is_binary(string), do: {:ok, state, string}
   def evalutate_expression(bool, state) when is_boolean(bool), do: {:ok, state, bool}

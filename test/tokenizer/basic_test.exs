@@ -39,6 +39,19 @@ defmodule Basex.Tokenizer.BasicTest do
     {"false", [{:bool, 1, false}]},
     {"1", [{:int, 1, 1}]},
     {"1.0", [{:float, 1, 1.0}]},
+    # Maps
+    {"&{ 1 => 2, 3 => 4}",
+     [
+       {:map_start, 1},
+       {:int, 1, 1},
+       {:fat_right_arrow, 1},
+       {:int, 1, 2},
+       {:",", 1},
+       {:int, 1, 3},
+       {:fat_right_arrow, 1},
+       {:int, 1, 4},
+       {:"}", 1}
+     ]},
     # Strings
     {"\"foo\"", [{:string, 1, "foo"}]},
     # Groupings

@@ -41,7 +41,7 @@ Regular expression : Erlang code.
   - [ ] string concat (<<)
 - [ ] Negative Numbers
 - [ ] Maps
-  - [ ] Literals
+  - [x] Literals
   - [ ] Dot access
 - [ ] Arrays
   - [x] literals
@@ -96,7 +96,7 @@ $negative_int <- -1;
 $negative_float <- -1.0;
 $string <- "foo";
 $array <- [1,2,3];
-$dict <- &{
+$map <- &{
   "foo" => "bar",
   "baz" => 1.0
   1 => 2,
@@ -105,8 +105,8 @@ $dict <- &{
 
 // indexing
 $array[$index]
-$dict[$key]
-$dict.key // only for string keys
+$map[$key]
+$map.key // only for string keys
 
 // comparison / boolean logic
 $result <- (1 < 2) && (3 >= 5) || ( 5 != 6);

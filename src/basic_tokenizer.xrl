@@ -32,6 +32,8 @@ else : {token, {else_block, TokenLine}}.
 {FLOAT}  : {token, {float, TokenLine, list_to_float(TokenChars)}}.
 {INT}    : {token, {int, TokenLine, list_to_integer(TokenChars)}}.
 {BOOL}   : {token, {bool, TokenLine, list_to_existing_atom(TokenChars)}}.
+&\{      : {token, {map_start, TokenLine}}.
+=>       : {token, {fat_right_arrow, TokenLine}}.
 
 % Groupings
 \[ : {token, {'[', TokenLine}}.

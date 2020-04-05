@@ -1,6 +1,8 @@
-Nonterminals list block expression expressions.
+Nonterminals list block map_pairs expression expressions.
 Terminals '[' ']' '(' ')' '{' '}' ','
-   var int float bool string operator if_block else_block statement_end.
+   var int float bool string operator
+   map_start fat_right_arrow
+   if_block else_block statement_end.
 
 Rootsymbol expressions.
 
@@ -19,6 +21,12 @@ expression -> if_block expression block : {if_expression, '$2', '$3', [nil]}.
 % code blocks
 block -> '{' expressions '}' : '$2'.
 block -> '{' '}' : [nil].
+
+% Maps
+expression -> map_start map_pairs : {map, '$2'}.
+map_pairs -> ',' expression fat_right_arrow expression map_pairs : [{'$2', '$4'} | '$5'].
+map_pairs -> expression fat_right_arrow expression map_pairs : [{'$1', '$3'} | '$4'].
+map_pairs -> '}' : [].
 
 % List
 expression -> '[' ']' : [].
