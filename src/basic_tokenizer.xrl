@@ -4,6 +4,7 @@ FLOAT      = [0-9]+\.[0-9]+
 INT        = [0-9]+
 BOOL       = (true|false)
 WHITESPACE = [\s\t\n\r]
+COMPARATOR = (<|<=|==|>=|>)
 
 Rules.
 
@@ -31,7 +32,7 @@ Rules.
 \/ : {token, {'/', TokenLine}}.
 
 % Comparisons
-== : {token, {'==', TokenLine}}.
+{COMPARATOR} : {token, {list_to_atom(TokenChars), TokenLine}}.
 
 % Assignment
 = : {token, {'=', TokenLine}}.

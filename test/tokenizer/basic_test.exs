@@ -21,9 +21,13 @@ defmodule Basex.Tokenizer.BasicTest do
     {"3 * 3", [{:int, 1, 3}, {:*, 1}, {:int, 1, 3}]},
     {"4 / 4", [{:int, 1, 4}, {:/, 1}, {:int, 1, 4}]},
     # Comparisons
-    {"5 == 5", [{:int, 1, 5}, {:==, 1}, {:int, 1, 5}]},
+    {"6 < 6", [{:int, 1, 6}, {:<, 1}, {:int, 1, 6}]},
+    {"7 > 7", [{:int, 1, 7}, {:>, 1}, {:int, 1, 7}]},
+    {"8 == 8", [{:int, 1, 8}, {:==, 1}, {:int, 1, 8}]},
+    {"9 <= 9", [{:int, 1, 9}, {:<=, 1}, {:int, 1, 9}]},
+    {"10 >= 10", [{:int, 1, 10}, {:>=, 1}, {:int, 1, 10}]},
     # Assignment
-    {"6 = 6", [{:int, 1, 6}, {:=, 1}, {:int, 1, 6}]}
+    {"11 = 11", [{:int, 1, 11}, {:=, 1}, {:int, 1, 11}]}
   ]
   |> Enum.each(fn {test_case, expected} ->
     test "it tokenizes \"#{test_case}\" to be #{inspect(Macro.escape(expected))}" do
