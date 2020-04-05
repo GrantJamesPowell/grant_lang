@@ -1,6 +1,4 @@
-# Basex
-
-A BASIC interperter written in Elxiir
+# GrantLang
 
 Basic Lang Spec
 http://media.salford-systems.com/pdf/spm7/BasicProgLang.pdf
@@ -38,12 +36,7 @@ Regular expression : Erlang code.
   - [ ] Heredoc
   - [ ] escaped newlines
   - [ ] escaped quotes (the current processer is striping the out with `replace`)
-  - [ ] string concat (<<)
 - [ ] Negative Numbers
-- [ ] Maps
-  - [x] Literals
-  - [x] bracket indexing
-  - [ ] Dot access
 - [ ] Arrays
   - [x] literals
   - [ ] numeric indexing ($arrays[10])
@@ -64,6 +57,7 @@ Regular expression : Erlang code.
 - [ ] ! negation operator
 - [ ] $foo++ $foo-- operators
 - [ ] $foo ||= $bar operator
+- [ ] String concat (<<)
 - [ ] REPL
 
 # DONE
@@ -78,6 +72,10 @@ Regular expression : Erlang code.
   - [x] `+ - / * **`
 - [x] If statements
   - [x] else
+- [x] Maps
+  - [x] Literals
+  - [x] bracket indexing
+  - [x] Dot access
 
 ## Sample
 
