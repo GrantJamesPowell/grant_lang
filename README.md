@@ -33,7 +33,7 @@ Regular expression : Erlang code.
 
 # TODO
 
-- [ ] Comments
+- [x] Comments
 - [ ] Negative Numbers
 - [ ] Maps
 - [ ] If statements
@@ -50,6 +50,8 @@ Regular expression : Erlang code.
 
 ```grantscript
 // I'm a comment!
+/* I'm a block comment
+see me span multiple lines */
 
 // assignment
 $foo <- [1,2,3];

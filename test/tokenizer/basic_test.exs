@@ -33,7 +33,13 @@ defmodule Basex.Tokenizer.BasicTest do
     {"$a", [{:var, 1, "$a"}]},
     {"$a123", [{:var, 1, "$a123"}]},
     {"$a <- 11", [{:var, 1, "$a"}, {:operator, 1, :<-}, {:int, 1, 11}]},
-    {"$a <- $b", [{:var, 1, "$a"}, {:operator, 1, :<-}, {:var, 1, "$b"}]}
+    {"$a <- $b", [{:var, 1, "$a"}, {:operator, 1, :<-}, {:var, 1, "$b"}]},
+    # Comments
+    {"//foo\n", []},
+    {"1; //foo\n", [{:int, 1, 1}, {:statement_end, 1}]},
+    {"1; //foo\n 2;", [{:int, 1, 1}, {:statement_end, 1}, {:int, 2, 2}, {:statement_end, 2}]},
+    {"/**/", []},
+    {"1 /* TEST */ + 2", [{:int, 1, 1}, {:operator, 1, :+}, {:int, 1, 2}]}
   ]
   |> Enum.each(fn {test_case, expected} ->
     test "it tokenizes \"#{test_case}\" to be #{inspect(expected)}" do

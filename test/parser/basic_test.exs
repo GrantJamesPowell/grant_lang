@@ -2,11 +2,13 @@ defmodule Basex.Parser.BasicTest do
   use ExUnit.Case, async: true
 
   [
+    # Literals
     {"1;", [1]},
     {"1.0;", [1.0]},
     {"true;", [true]},
     {"false;", [false]},
     {"true; false;", [true, false]},
+    # Operators
     {"1 > 2;", [{:>, 1, 2}]},
     {"3 < 4;", [{:<, 3, 4}]},
     {"5 >= 6;", [{:>=, 5, 6}]},
@@ -18,13 +20,18 @@ defmodule Basex.Parser.BasicTest do
     {"7 / 8;", [{:/, 7, 8}]},
     {"true || false;", [{:||, true, false}]},
     {"false && true;", [{:&&, false, true}]},
+    # Parens
     {"(2 + 3) * 4;", [{:*, {:+, 2, 3}, 4}]},
     {"((2 + 3) * 4) - 5;", [{:-, {:*, {:+, 2, 3}, 4}, 5}]},
     {"$a <- 2;", [{:<-, {:var, "$a"}, 2}]},
+    # Lists
     {"[];", [[]]},
     {"[1];", [[1]]},
     {"[1, 2, 3];", [[1, 2, 3]]},
-    {"[1, 2, (3 + 4)];", [[1, 2, {:+, 3, 4}]]}
+    {"[1, 2, (3 + 4)];", [[1, 2, {:+, 3, 4}]]},
+    # Comments
+    {"12 + /* COMMENT */ 13;", [{:+, 12, 13}]},
+    {"12 + 13; // foo\n", [{:+, 12, 13}]}
   ]
   |> Enum.each(fn {code, expected} ->
     test "It can parse literal \"#{code}\" into #{inspect(Macro.escape(expected))}" do

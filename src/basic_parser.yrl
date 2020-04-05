@@ -1,11 +1,13 @@
 Nonterminals list expression expressions.
-Terminals '[' ']' '(' ')' ',' var int float bool comparator operator statement_end.
+Terminals '[' ']' '(' ')' ','
+   var int float bool operator statement_end.
 
 Rootsymbol expressions.
 
 expressions -> expression statement_end expressions : ['$1' | '$3'].
 expressions -> expression statement_end : ['$1'].
 
+% eval
 expression -> expression operator expression : {extract_token('$2'), '$1', '$3'}.
 expression -> '(' expression ')' : '$2'.
 

@@ -8,9 +8,13 @@ COMPARATOR = (<|<=|==|>=|>)
 ARITHMETIC_OPERATOR = (\*\*|\+|\*|\/|-)
 BOOLEAN_OPERATOR = (&&|\|\|)
 IDENTIFIER = \$[a-zA-Z]+[a-zA-Z0-9]*
+BLOCK_COMMENT = /\*.*\*/
+INLINE_COMMENT = //.*\n
 
 Rules.
 
+{INLINE_COMMENT} : skip_token.
+{BLOCK_COMMENT} : skip_token.
 {WHITESPACE}+ : skip_token.
 ; : {token, {statement_end, TokenLine}}.
 
