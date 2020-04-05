@@ -20,7 +20,11 @@ defmodule Basex.Parser.BasicTest do
     {"false && true;", [{:&&, false, true}]},
     {"(2 + 3) * 4;", [{:*, {:+, 2, 3}, 4}]},
     {"((2 + 3) * 4) - 5;", [{:-, {:*, {:+, 2, 3}, 4}, 5}]},
-    {"$a <- 2;", [{:<-, {:var, "$a"}, 2}]}
+    {"$a <- 2;", [{:<-, {:var, "$a"}, 2}]},
+    {"[];", [[]]},
+    {"[1];", [[1]]},
+    {"[1, 2, 3];", [[1, 2, 3]]},
+    {"[1, 2, (3 + 4)];", [[1, 2, {:+, 3, 4}]]},
   ]
   |> Enum.each(fn {code, expected} ->
     test "It can parse literal \"#{code}\" into #{inspect(Macro.escape(expected))}" do
