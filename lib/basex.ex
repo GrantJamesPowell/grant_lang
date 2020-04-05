@@ -79,6 +79,15 @@ defmodule Basex do
     {:ok, state, map}
   end
 
+  def evalutate_expression({:index, expression, index_expression}, state) do
+    {:ok, state, indexable} = evalutate_expression(expression, state)
+    {:ok, state, index} = evalutate_expression(index_expression, state)
+
+    case indexable do
+      map when is_map(map) -> {:ok, state, indexable[index]}
+    end
+  end
+
   def evalutate_expression(number, state) when is_number(number), do: {:ok, state, number}
   def evalutate_expression(string, state) when is_binary(string), do: {:ok, state, string}
   def evalutate_expression(bool, state) when is_boolean(bool), do: {:ok, state, bool}

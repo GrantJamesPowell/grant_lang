@@ -1,4 +1,4 @@
-Nonterminals list block map_pairs expression expressions.
+Nonterminals list block variable map_pairs expression expressions.
 Terminals '[' ']' '(' ')' '{' '}' ','
    var int float bool string operator
    map_start fat_right_arrow
@@ -8,13 +8,24 @@ Rootsymbol expressions.
 
 expressions -> expression statement_end expressions : ['$1' | '$3'].
 expressions -> expression statement_end : ['$1'].
+expressions -> expression : ['$1'].
 
+% Literals
+expression -> int : extract_token('$1').
+expression -> bool : extract_token('$1').
+expression -> float : extract_token('$1').
+expression -> string : extract_token('$1').
 
-% eval
+% Variables
+expression -> variable '[' expression ']' : {index, '$1', '$3'}.
+expression -> variable : '$1'.
+variable -> var : {var, extract_token('$1')}.
+
+% Operators
 expression -> expression operator expression : {extract_token('$2'), '$1', '$3'}.
 expression -> '(' expression ')' : '$2'.
 
-% if
+% If
 expression -> if_block expression block else_block block : {if_expression, '$2', '$3', '$5'}.
 expression -> if_block expression block : {if_expression, '$2', '$3', [nil]}.
 
@@ -34,12 +45,6 @@ expression -> '[' list ']' : '$2'.
 list -> expression ',' list : ['$1' | '$3'].
 list -> expression : ['$1'].
 
-% Literals
-expression -> var : {var, extract_token('$1')}.
-expression -> int : extract_token('$1').
-expression -> bool : extract_token('$1').
-expression -> float : extract_token('$1').
-expression -> string : extract_token('$1').
 
 Erlang code.
 
