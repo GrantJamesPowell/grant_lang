@@ -37,7 +37,7 @@ defmodule Basex.Tokenizer.BasicTest do
     # Literals
     {"true", [{:bool, 1, true}]},
     {"false", [{:bool, 1, false}]},
-    {"nil", [{:nil, 1}]},
+    {"nil", [{nil, 1}]},
     {"1", [{:int, 1, 1}]},
     {"1.0", [{:float, 1, 1.0}]},
     # Maps

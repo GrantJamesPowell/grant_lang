@@ -1,4 +1,4 @@
-Nonterminals list block map_pairs expression expressions.
+Nonterminals block map_pairs expression expressions comma_seperated_expressions.
 Terminals '[' ']' '(' ')' '{' '}' ','
    var int float nil bool string operator identifier
    map_start fat_right_arrow dot
@@ -40,12 +40,11 @@ map_pairs -> ',' expression fat_right_arrow expression map_pairs : [{'$2', '$4'}
 map_pairs -> expression fat_right_arrow expression map_pairs : [{'$1', '$3'} | '$4'].
 map_pairs -> '}' : [].
 
-% List
-expression -> '[' ']' : [].
-expression -> '[' list ']' : '$2'.
-list -> expression ',' list : ['$1' | '$3'].
-list -> expression : ['$1'].
-
+% Arrays
+expression -> '[' ']' : {array, []}.
+expression -> '[' comma_seperated_expressions ']' : {array, '$2'}.
+comma_seperated_expressions -> expression ',' comma_seperated_expressions : ['$1' | '$3'].
+comma_seperated_expressions -> expression : ['$1'].
 
 Erlang code.
 

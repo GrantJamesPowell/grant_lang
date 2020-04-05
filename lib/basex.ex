@@ -83,9 +83,13 @@ defmodule Basex do
     {:ok, state, indexable} = evalutate_expression(expression, state)
     {:ok, state, index} = evalutate_expression(index_expression, state)
 
-    case indexable do
-      map when is_map(map) -> {:ok, state, indexable[index]}
-    end
+    result =
+      cond do
+        is_map(indexable) -> indexable[index]
+        :array.is_array(indexable) -> :array.get(index, indexable)
+      end
+
+    {:ok, state, result}
   end
 
   def evalutate_expression({:dot, expression, identifier}, state) do
@@ -94,6 +98,21 @@ defmodule Basex do
     case dottable do
       map when is_map(map) -> {:ok, state, Map.fetch!(map, identifier)}
     end
+  end
+
+  def evalutate_expression({:array, expressions}, state) do
+    {state, evaled} =
+      Enum.reduce(expressions, {state, []}, fn expression, {state, evaled} ->
+        {:ok, state, result} = evalutate_expression(expression, state)
+        {state, [result | evaled]}
+      end)
+
+    array =
+      evaled
+      |> Enum.reverse()
+      |> :array.from_list()
+
+    {:ok, state, array}
   end
 
   def evalutate_expression(number, state) when is_number(number), do: {:ok, state, number}
