@@ -4,7 +4,35 @@ defmodule Basex.Tokenizer.BasicTest do
   [
     # Program Constructs
     {"1; 2", [{:int, 1, 1}, {:statement_end, 1}, {:int, 1, 2}]},
-    {"if (true) { 1; }", [{:if_block, 1}, {:"(", 1}, {:bool, 1, true}, {:")", 1}, {:"{", 1}, {:int, 1, 1}, {:statement_end, 1}, {:"}", 1}]},
+    {"if (true) { 1; }",
+     [
+       {:if_block, 1},
+       {:"(", 1},
+       {:bool, 1, true},
+       {:")", 1},
+       {:"{", 1},
+       {:int, 1, 1},
+       {:statement_end, 1},
+       {:"}", 1}
+     ]},
+    {"if (true || false) { 1; } else { 2; }",
+     [
+       {:if_block, 1},
+       {:"(", 1},
+       {:bool, 1, true},
+       {:operator, 1, :||},
+       {:bool, 1, false},
+       {:")", 1},
+       {:"{", 1},
+       {:int, 1, 1},
+       {:statement_end, 1},
+       {:"}", 1},
+       {:else_block, 1},
+       {:"{", 1},
+       {:int, 1, 2},
+       {:statement_end, 1},
+       {:"}", 1}
+     ]},
     {"  \n\s\t", []},
     # Literals
     {"true", [{:bool, 1, true}]},
@@ -48,7 +76,7 @@ defmodule Basex.Tokenizer.BasicTest do
     {"1 /* TEST */ + 2", [{:int, 1, 1}, {:operator, 1, :+}, {:int, 1, 2}]}
   ]
   |> Enum.each(fn {test_case, expected} ->
-    test "it tokenizes \"#{test_case}\" to be #{inspect(expected)}" do
+    test "it tokenizes \"#{test_case}\" correctly" do
       {:ok, tokens, _} = Basex.tokenize(unquote(Macro.escape(test_case)))
       assert tokens == unquote(Macro.escape(expected))
     end

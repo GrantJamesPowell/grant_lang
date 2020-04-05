@@ -54,17 +54,21 @@ defmodule Basex do
     {:ok, state, Map.fetch!(state.vars, var)}
   end
 
-  def evalutate_expression({:if_expression, condition_expression, success_block}, state) do
+  def evalutate_expression(
+        {:if_expression, condition_expression, success_block, else_block},
+        state
+      ) do
     {:ok, state, condition} = evalutate_expression(condition_expression, state)
 
     if condition do
       evalutate_expressions(success_block, state)
     else
-      {:ok, state, nil}
+      evalutate_expressions(else_block, state)
     end
   end
 
   def evalutate_expression(number, state) when is_number(number), do: {:ok, state, number}
   def evalutate_expression(string, state) when is_binary(string), do: {:ok, state, string}
   def evalutate_expression(bool, state) when is_boolean(bool), do: {:ok, state, bool}
+  def evalutate_expression(nil, state), do: {:ok, state, nil}
 end

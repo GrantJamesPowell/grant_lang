@@ -36,8 +36,9 @@ defmodule Basex.Parser.BasicTest do
     {"12 + /* COMMENT */ 13;", [{:+, 12, 13}]},
     {"12 + 13; // foo\n", [{:+, 12, 13}]},
     # blocks
-    {"if (true) {};", [{:if_expression, true, [nil]}]},
-    {"if ( true ) { 1 + 2; };", [{:if_expression, true, [{:+, 1, 2}]}]}
+    {"if (true) {};", [{:if_expression, true, [nil], [nil]}]},
+    {"if (true) { 1 + 2; };", [{:if_expression, true, [{:+, 1, 2}], [nil]}]},
+    {"if (false) {} else { 3 + 4; };", [{:if_expression, false, [nil], [{:+, 3, 4}]}]}
   ]
   |> Enum.each(fn {code, expected} ->
     test "It can parse literal \"#{code}\" into #{inspect(Macro.escape(expected))}" do

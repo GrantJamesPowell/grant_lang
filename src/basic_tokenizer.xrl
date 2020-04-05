@@ -18,6 +18,7 @@ Rules.
 {BLOCK_COMMENT} : skip_token.
 
 if : {token, {if_block, TokenLine}}.
+else : {token, {else_block, TokenLine}}.
 
 {WHITESPACE}+ : skip_token.
 ; : {token, {statement_end, TokenLine}}.
