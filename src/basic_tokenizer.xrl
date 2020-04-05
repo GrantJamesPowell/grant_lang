@@ -8,6 +8,7 @@ COMPARATOR = (<|<=|!=|==|>=|>)
 ARITHMETIC_OPERATOR = (\*\*|\+|\*|\/|-)
 BOOLEAN_OPERATOR = (&&|\|\|)
 IDENTIFIER = \$[a-zA-Z]+[a-zA-Z0-9]*
+STRING = ".*"
 BLOCK_COMMENT = /\*(.|\n)*\*/
 INLINE_COMMENT = //.*\n
 
@@ -23,9 +24,10 @@ Rules.
 {IDENTIFIER} : {token, {var, TokenLine, list_to_binary(TokenChars)}}.
 
 % Literals
-{FLOAT}       : {token, {float, TokenLine, list_to_float(TokenChars)}}.
-{INT}         : {token, {int, TokenLine, list_to_integer(TokenChars)}}.
-{BOOL}        : {token, {bool, TokenLine, list_to_existing_atom(TokenChars)}}.
+{STRING} : {token, {string, TokenLine, process_string_literal(TokenChars)}}.
+{FLOAT}  : {token, {float, TokenLine, list_to_float(TokenChars)}}.
+{INT}    : {token, {int, TokenLine, list_to_integer(TokenChars)}}.
+{BOOL}   : {token, {bool, TokenLine, list_to_existing_atom(TokenChars)}}.
 
 % Groupings
 \[ : {token, {'[', TokenLine}}.
@@ -42,3 +44,7 @@ Rules.
 {COMPARATOR} : {token, {operator, TokenLine, list_to_atom(TokenChars)}}.
 
 Erlang code.
+
+process_string_literal(StringLiteral) ->
+  list_to_binary(string:replace(StringLiteral, "\"", "", all)).
+

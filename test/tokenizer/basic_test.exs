@@ -10,6 +10,8 @@ defmodule Basex.Tokenizer.BasicTest do
     {"false", [{:bool, 1, false}]},
     {"1", [{:int, 1, 1}]},
     {"1.0", [{:float, 1, 1.0}]},
+    # Strings
+    {"\"foo\"", [{:string, 1, "foo"}]},
     # Groupings
     {"(1)", [{:"(", 1}, {:int, 1, 1}, {:")", 1}]},
     {"[2]", [{:"[", 1}, {:int, 1, 2}, {:"]", 1}]},

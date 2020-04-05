@@ -35,8 +35,8 @@ defmodule Basex do
     result =
       case operator do
         :"**" -> :math.pow(lhs, rhs)
-        :|| -> (lhs || rhs)
-        :&& -> (lhs && rhs)
+        :|| -> lhs || rhs
+        :&& -> lhs && rhs
         _ -> apply(Kernel, operator, [lhs, rhs])
       end
 
@@ -54,4 +54,5 @@ defmodule Basex do
   end
 
   def evalutate_expression(number, state) when is_number(number), do: {:ok, state, number}
+  def evalutate_expression(string, state) when is_binary(string), do: {:ok, state, string}
 end

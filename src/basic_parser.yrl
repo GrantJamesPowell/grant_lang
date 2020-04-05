@@ -1,6 +1,6 @@
 Nonterminals list expression expressions.
 Terminals '[' ']' '(' ')' ','
-   var int float bool operator statement_end.
+   var int float bool string operator statement_end.
 
 Rootsymbol expressions.
 
@@ -22,6 +22,7 @@ expression -> var : {var, extract_token('$1')}.
 expression -> int : extract_token('$1').
 expression -> bool : extract_token('$1').
 expression -> float : extract_token('$1').
+expression -> string : extract_token('$1').
 
 Erlang code.
 
