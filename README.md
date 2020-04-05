@@ -47,8 +47,6 @@ Regular expression : Erlang code.
   - [x] literals
   - [ ] numeric indexing ($arrays[10])
   - [ ] << (shovel) operator
-- [ ] If statements
-  - [ ] else
 - [ ] For loops
   - [ ] Break Statement
   - [ ] Return array of results
@@ -72,6 +70,8 @@ Regular expression : Erlang code.
   - [x] && ||
 - [x] Math operators
   - [x] `+ - / * **`
+- [x] If statements
+  - [x] else
 
 ## Sample
 
