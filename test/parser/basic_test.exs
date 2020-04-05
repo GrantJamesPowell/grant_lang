@@ -24,11 +24,12 @@ defmodule Basex.Parser.BasicTest do
     {"[];", [[]]},
     {"[1];", [[1]]},
     {"[1, 2, 3];", [[1, 2, 3]]},
-    {"[1, 2, (3 + 4)];", [[1, 2, {:+, 3, 4}]]},
+    {"[1, 2, (3 + 4)];", [[1, 2, {:+, 3, 4}]]}
   ]
   |> Enum.each(fn {code, expected} ->
     test "It can parse literal \"#{code}\" into #{inspect(Macro.escape(expected))}" do
-      assert Basex.parse(unquote(code)) == unquote(Macro.escape(expected))
+      {:ok, parsed} = Basex.parse(unquote(code))
+      assert parsed == unquote(Macro.escape(expected))
     end
   end)
 end

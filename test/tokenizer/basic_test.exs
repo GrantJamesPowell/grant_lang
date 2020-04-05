@@ -36,7 +36,7 @@ defmodule Basex.Tokenizer.BasicTest do
     {"$a <- $b", [{:var, 1, "$a"}, {:operator, 1, :<-}, {:var, 1, "$b"}]}
   ]
   |> Enum.each(fn {test_case, expected} ->
-    test "it tokenizes \"#{test_case}\" to be #{inspect(Macro.escape(expected))}" do
+    test "it tokenizes \"#{test_case}\" to be #{inspect(expected)}" do
       {:ok, tokens, _} = Basex.tokenize(unquote(Macro.escape(test_case)))
       assert tokens == unquote(Macro.escape(expected))
     end
