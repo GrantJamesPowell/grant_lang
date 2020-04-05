@@ -32,7 +32,7 @@ Rules.
 \/ : {token, {'/', TokenLine}}.
 
 % Comparisons
-{COMPARATOR} : {token, {list_to_atom(TokenChars), TokenLine}}.
+{COMPARATOR} : {token, {comparator, TokenLine, list_to_atom(TokenChars)}}.
 
 % Assignment
 = : {token, {'=', TokenLine}}.
