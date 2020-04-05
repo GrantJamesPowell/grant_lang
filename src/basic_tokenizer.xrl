@@ -5,6 +5,7 @@ INT        = [0-9]+
 BOOL       = (true|false)
 WHITESPACE = [\s\t\n\r]
 COMPARATOR = (<|<=|==|>=|>)
+ARITHMETIC_OPERATOR = (\+|\*|\/|-)
 
 Rules.
 
@@ -26,10 +27,7 @@ Rules.
 ,  : {token, {',', TokenLine}}.
 
 % Operators
-\+ : {token, {'+', TokenLine}}.
-\* : {token, {'*', TokenLine}}.
--  : {token, {'-', TokenLine}}.
-\/ : {token, {'/', TokenLine}}.
+{ARITHMETIC_OPERATOR} : {token, {operator, TokenLine, list_to_atom(TokenChars)}}.
 
 % Comparisons
 {COMPARATOR} : {token, {comparator, TokenLine, list_to_atom(TokenChars)}}.
