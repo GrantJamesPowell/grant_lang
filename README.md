@@ -37,6 +37,7 @@ Regular expression : Erlang code.
   - [x] Double quote single line
   - [ ] Heredoc
   - [ ] escaped newlines
+  - [ ] escaped quotes (the current processer is striping the out with `replace`)
   - [ ] string concat (<<)
 - [ ] Negative Numbers
 - [ ] Maps
@@ -46,8 +47,8 @@ Regular expression : Erlang code.
   - [x] literals
   - [ ] numeric indexing ($arrays[10])
   - [ ] << (shovel) operator
-  - [ ]
 - [ ] If statements
+  - [ ] else
 - [ ] For loops
   - [ ] Break Statement
   - [ ] Return array of results
@@ -59,6 +60,7 @@ Regular expression : Erlang code.
   - [ ] Functions as values?
   - [ ] Anon funcs?
 - [ ] Have && and || short circuit
+- [ ] ! negation operator
 
 # DONE
 
