@@ -1,7 +1,7 @@
 Nonterminals list block map_pairs expression expressions.
 Terminals '[' ']' '(' ')' '{' '}' ','
-   var int float bool string operator
-   map_start fat_right_arrow
+   var int float bool string operator identifier
+   map_start fat_right_arrow dot
    if_block else_block statement_end.
 
 Rootsymbol expressions.
@@ -19,6 +19,7 @@ expression -> var    : {var, extract_token('$1')}.
 
 % Indexing
 expression -> expression '[' expression ']' : {index, '$1', '$3'}.
+expression -> expression dot identifier     : {dot, '$1', extract_token('$3')}.
 
 % Operators
 expression -> expression operator expression : {extract_token('$2'), '$1', '$3'}.

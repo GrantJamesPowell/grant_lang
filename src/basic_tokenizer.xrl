@@ -7,7 +7,7 @@ WHITESPACE = [\s\t\n\r]
 COMPARATOR = (<|<=|!=|==|>=|>)
 ARITHMETIC_OPERATOR = (\*\*|\+|\*|\/|-)
 BOOLEAN_OPERATOR = (&&|\|\|)
-IDENTIFIER = \$[a-zA-Z]+[a-zA-Z0-9]*
+IDENTIFIER = [a-zA-Z]+[a-zA-Z0-9]*
 STRING = ".*"
 BLOCK_COMMENT = /\*(.|\n)*\*/
 INLINE_COMMENT = //.*\n
@@ -17,15 +17,12 @@ Rules.
 {INLINE_COMMENT} : skip_token.
 {BLOCK_COMMENT} : skip_token.
 
-if : {token, {if_block, TokenLine}}.
+% Keywords
+if   : {token, {if_block, TokenLine}}.
 else : {token, {else_block, TokenLine}}.
-
-{WHITESPACE}+ : skip_token.
-; : {token, {statement_end, TokenLine}}.
-
-% Assignment
-<- : {token, {operator, TokenLine, list_to_atom(TokenChars)}}.
-{IDENTIFIER} : {token, {var, TokenLine, list_to_binary(TokenChars)}}.
+\.   : {token, {dot, TokenLine}}.
+<-   : {token, {operator, TokenLine, list_to_atom(TokenChars)}}.
+;    : {token, {statement_end, TokenLine}}.
 
 % Literals
 {STRING} : {token, {string, TokenLine, process_string_literal(TokenChars)}}.
@@ -34,6 +31,10 @@ else : {token, {else_block, TokenLine}}.
 {BOOL}   : {token, {bool, TokenLine, list_to_existing_atom(TokenChars)}}.
 &\{      : {token, {map_start, TokenLine}}.
 =>       : {token, {fat_right_arrow, TokenLine}}.
+
+% Identifier
+\${IDENTIFIER} : {token, {var, TokenLine, list_to_binary(TokenChars)}}.
+{IDENTIFIER}   : {token, {identifier, TokenLine, list_to_binary(TokenChars)}}.
 
 % Groupings
 \[ : {token, {'[', TokenLine}}.
@@ -48,6 +49,9 @@ else : {token, {else_block, TokenLine}}.
 {ARITHMETIC_OPERATOR} : {token, {operator, TokenLine, list_to_atom(TokenChars)}}.
 {BOOLEAN_OPERATOR} : {token, {operator, TokenLine, list_to_atom(TokenChars)}}.
 {COMPARATOR} : {token, {operator, TokenLine, list_to_atom(TokenChars)}}.
+
+% Non significant whitespace
+{WHITESPACE}+ : skip_token.
 
 Erlang code.
 

@@ -52,6 +52,8 @@ defmodule Basex.Tokenizer.BasicTest do
        {:int, 1, 4},
        {:"}", 1}
      ]},
+    # Dot Access
+    {"$foo.bar", [{:var, 1, "$foo"}, {:dot, 1}, {:identifier, 1, "bar"}]},
     # Strings
     {"\"foo\"", [{:string, 1, "foo"}]},
     # Groupings

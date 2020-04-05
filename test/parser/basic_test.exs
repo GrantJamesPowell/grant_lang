@@ -14,6 +14,7 @@ defmodule Basex.Parser.BasicTest do
     {"&{ (1 + 1) => (2 + 2)};", [{:map, [{{:+, 1, 1}, {:+, 2, 2}}]}]},
     {"$foo[1];", [{:index, {:var, "$foo"}, 1}]},
     {"&{1 => 2}[1];", [{:index, {:map, [{1, 2}]}, 1}]},
+    {"&{\"foo\" => 2}.foo;", [{:dot, {:map, [{"foo", 2}]}, "foo"}]},
     # Strings
     {"\"foo\";", ["foo"]},
     # Arrays

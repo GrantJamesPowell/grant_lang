@@ -88,6 +88,14 @@ defmodule Basex do
     end
   end
 
+  def evalutate_expression({:dot, expression, identifier}, state) do
+    {:ok, state, dottable} = evalutate_expression(expression, state)
+
+    case dottable do
+      map when is_map(map) -> {:ok, state, Map.fetch!(map, identifier)}
+    end
+  end
+
   def evalutate_expression(number, state) when is_number(number), do: {:ok, state, number}
   def evalutate_expression(string, state) when is_binary(string), do: {:ok, state, string}
   def evalutate_expression(bool, state) when is_boolean(bool), do: {:ok, state, bool}
