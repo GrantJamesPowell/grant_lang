@@ -31,16 +31,12 @@ Regular expression : Erlang code.
 
 # TODO
 
+- [ ] Negative Numbers
 - [ ] Strings
   - [x] Double quote single line
   - [ ] Heredoc
   - [ ] escaped newlines
   - [ ] escaped quotes (the current processer is striping the out with `replace`)
-- [ ] Negative Numbers
-- [ ] Arrays
-  - [x] literals
-  - [ ] numeric indexing ($arrays[10])
-  - [ ] << (shovel) operator
 - [ ] For loops
   - [ ] for ($val <- $array) { $val + 1 } // $array
   - [ ] for ($val <- $map) { $val + 1 } // $map
@@ -57,7 +53,7 @@ Regular expression : Erlang code.
 - [ ] ! negation operator
 - [ ] $foo++ $foo-- operators
 - [ ] $foo ||= $bar operator
-- [ ] String concat (<<)
+- [ ] String/Array concat (<<)
 - [ ] REPL
 
 # DONE
@@ -76,6 +72,9 @@ Regular expression : Erlang code.
   - [x] Literals
   - [x] bracket indexing
   - [x] Dot access
+- [x] Arrays
+  - [x] literals
+  - [x] numeric indexing ($arrays[10])
 
 ## Sample
 
