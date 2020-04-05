@@ -30,7 +30,10 @@ defmodule Basex.Tokenizer.BasicTest do
     {"true || true", [{:bool, 1, true}, {:operator, 1, :||}, {:bool, 1, true}]},
     {"false && true", [{:bool, 1, false}, {:operator, 1, :&&}, {:bool, 1, true}]},
     # Assignment
-    {"11 = 11", [{:int, 1, 11}, {:=, 1}, {:int, 1, 11}]}
+    {"$a", [{:var, 1, "$a"}]},
+    {"$a123", [{:var, 1, "$a123"}]},
+    {"$a <- 11", [{:var, 1, "$a"}, {:operator, 1, :<-}, {:int, 1, 11}]},
+    {"$a <- $b", [{:var, 1, "$a"}, {:operator, 1, :<-}, {:var, 1, "$b"}]}
   ]
   |> Enum.each(fn {test_case, expected} ->
     test "it tokenizes \"#{test_case}\" to be #{inspect(Macro.escape(expected))}" do

@@ -7,11 +7,16 @@ WHITESPACE = [\s\t\n\r]
 COMPARATOR = (<|<=|==|>=|>)
 ARITHMETIC_OPERATOR = (\+|\*|\/|-)
 BOOLEAN_OPERATOR = (&&|\|\|)
+IDENTIFIER = \$[a-zA-Z]+[a-zA-Z0-9]*
 
 Rules.
 
 {WHITESPACE}+ : skip_token.
 ; : {token, {statement_end, TokenLine}}.
+
+% Assignment
+<- : {token, {operator, TokenLine, list_to_atom(TokenChars)}}.
+{IDENTIFIER} : {token, {var, TokenLine, list_to_binary(TokenChars)}}.
 
 % Literals
 {FLOAT}       : {token, {float, TokenLine, list_to_float(TokenChars)}}.
@@ -31,8 +36,5 @@ Rules.
 {ARITHMETIC_OPERATOR} : {token, {operator, TokenLine, list_to_atom(TokenChars)}}.
 {BOOLEAN_OPERATOR} : {token, {operator, TokenLine, list_to_atom(TokenChars)}}.
 {COMPARATOR} : {token, {operator, TokenLine, list_to_atom(TokenChars)}}.
-
-% Assignment
-= : {token, {'=', TokenLine}}.
 
 Erlang code.
