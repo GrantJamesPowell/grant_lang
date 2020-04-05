@@ -48,8 +48,10 @@ Regular expression : Erlang code.
   - [ ] numeric indexing ($arrays[10])
   - [ ] << (shovel) operator
 - [ ] For loops
-  - [ ] Break Statement
-  - [ ] Return array of results
+  - [ ] for ($val <- $array) { $val + 1 } // $array
+  - [ ] for ($val <- $map) { $val + 1 } // $map
+  - [ ] for ($index, $val <- $array) { $val + 1 } // $array
+  - [ ] for ($key, $val <- $map) { $val + 1 } // $map
 - [ ] While Loops
   - [ ] Break Statement
 - [ ] Functions
@@ -59,6 +61,9 @@ Regular expression : Erlang code.
   - [ ] Anon funcs?
 - [ ] Have && and || short circuit
 - [ ] ! negation operator
+- [ ] $foo++ $foo-- operators
+- [ ] $foo ||= $bar operator
+- [ ] REPL
 
 # DONE
 
@@ -90,12 +95,6 @@ $float <- 1.0;
 $negative_int <- -1;
 $negative_float <- -1.0;
 $string <- "foo";
-$escaped_string <- "\"bar\"\n";
-$multiline_string <- """
-  foo
-  bar
-  baz
-""";
 $array <- [1,2,3];
 $dict <- &{
   "foo" => "bar",
@@ -112,16 +111,19 @@ $dict.key // only for string keys
 // comparison / boolean logic
 $result <- (1 < 2) && (3 >= 5) || ( 5 != 6);
 
+// if statement 
+if (true || false) { "foo"; } else { "bar"; };
+
 // while loop
-while ($bar) {
-  // if statement
-  if ($RAND > 0.5) { break; };
-};
+while ($bar) { if (true) { break; }; };
 
 // for loop
 for ($i <= $foo) {
-  if ($i > 2) { @echo($i) } else { break; };
+  if ($i > 2) { std_lib.echo($i) } else { $i };
 };
+
+// for loops as `map`
+$result <- for ($i <- [1,2,3]) { $i + 1 } // $result == [2,3,4]
 
 // assignment from an if statement
 $result <- if ($RAND > 0.5) { 4; } else { 5; };
