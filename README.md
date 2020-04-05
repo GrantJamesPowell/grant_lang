@@ -42,6 +42,7 @@ Regular expression : Erlang code.
 - [ ] Negative Numbers
 - [ ] Maps
   - [x] Literals
+  - [x] bracket indexing
   - [ ] Dot access
 - [ ] Arrays
   - [x] literals

@@ -4,7 +4,7 @@ defmodule Basex.Evaluator.IndexingTest do
   [
     {"$foo <- &{ 1 => 2 }; $foo[1];", 2},
     {"$foo <- &{ 1 => 2 }; $foo[42];", nil},
-    {"&{ 1 => 2 }[1];", 1}
+    {"&{ 1 => 2 }[1];", 2}
   ]
   |> Enum.each(fn {code, result} ->
     test "code \"#{code}\" evaluates to (#{result})" do

@@ -1,4 +1,4 @@
-Nonterminals list block variable map_pairs expression expressions.
+Nonterminals list block map_pairs expression expressions.
 Terminals '[' ']' '(' ')' '{' '}' ','
    var int float bool string operator
    map_start fat_right_arrow
@@ -11,15 +11,14 @@ expressions -> expression statement_end : ['$1'].
 expressions -> expression : ['$1'].
 
 % Literals
-expression -> int : extract_token('$1').
-expression -> bool : extract_token('$1').
-expression -> float : extract_token('$1').
+expression -> int    : extract_token('$1').
+expression -> bool   : extract_token('$1').
+expression -> float  : extract_token('$1').
 expression -> string : extract_token('$1').
+expression -> var    : {var, extract_token('$1')}.
 
-% Variables
-expression -> variable '[' expression ']' : {index, '$1', '$3'}.
-expression -> variable : '$1'.
-variable -> var : {var, extract_token('$1')}.
+% Indexing
+expression -> expression '[' expression ']' : {index, '$1', '$3'}.
 
 % Operators
 expression -> expression operator expression : {extract_token('$2'), '$1', '$3'}.
