@@ -25,6 +25,7 @@ else : {token, {else_block, TokenLine}}.
 ;    : {token, {statement_end, TokenLine}}.
 
 % Literals
+nil      : {token, {nil, TokenLine}}.
 {STRING} : {token, {string, TokenLine, process_string_literal(TokenChars)}}.
 {FLOAT}  : {token, {float, TokenLine, list_to_float(TokenChars)}}.
 {INT}    : {token, {int, TokenLine, list_to_integer(TokenChars)}}.

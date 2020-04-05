@@ -1,6 +1,6 @@
 Nonterminals list block map_pairs expression expressions.
 Terminals '[' ']' '(' ')' '{' '}' ','
-   var int float bool string operator identifier
+   var int float nil bool string operator identifier
    map_start fat_right_arrow dot
    if_block else_block statement_end.
 
@@ -11,6 +11,7 @@ expressions -> expression statement_end : ['$1'].
 expressions -> expression : ['$1'].
 
 % Literals
+expression -> nil    : nil.
 expression -> int    : extract_token('$1').
 expression -> bool   : extract_token('$1').
 expression -> float  : extract_token('$1').

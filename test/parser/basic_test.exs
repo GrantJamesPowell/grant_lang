@@ -8,6 +8,7 @@ defmodule Basex.Parser.BasicTest do
     {"true;", [true]},
     {"false;", [false]},
     {"true; false;", [true, false]},
+    {"nil;", [nil]},
     # Maps 
     {"&{};", [{:map, []}]},
     {"&{ 1 => 2, 3 => 4};", [{:map, [{1, 2}, {3, 4}]}]},
