@@ -125,3 +125,7 @@ for ($i <= $foo) {
 // assignment from an if statement
 $result <- if ($RAND > 0.5) { 4; } else { 5; };
 ```
+
+## General Notes
+
+- Comments were the first time I had to deal with significant whitespace, "//" comments are ended by a new line, and it took me a minute to figure that one out 
