@@ -33,28 +33,40 @@ Regular expression : Erlang code.
 
 # TODO
 
-- [x] Comments
-  - [ ] nested comments
 - [ ] Strings
   - [ ] Double quote
   - [ ] Single quote
   - [ ] Heredoc
   - [ ] escaped newlines
+  - [ ] string concat (<<)
+- [ ] Comparators
+  - [x] > < <= >=
+  - [ ] == !=
 - [ ] Negative Numbers
 - [ ] Maps
   - [ ] Literals
   - [ ] Dot access
 - [ ] Arrays
+  - [x] literals
+  - [ ] numeric indexing ($arrays[10])
   - [ ] << (shovel) operator
+  - [ ]
 - [ ] If statements
 - [ ] For loops
   - [ ] Break Statement
+  - [ ] Return array of results
 - [ ] While Loops
+  - [ ] Break Statement
 - [ ] Functions
   - [ ] Call "stdlib functions"
   - [ ] Define functions
   - [ ] Functions as values?
   - [ ] Anon funcs?
+
+# DONE
+
+- [x] Comments
+  - [x] nested comments
 
 ## Sample
 
@@ -66,6 +78,34 @@ see me span multiple lines */
 // assignment
 $foo <- [1,2,3];
 $bar <- true || false;
+
+// literals
+$integer <- 1;
+$float <- 1.0;
+$negative_int <- -1;
+$negative_float <- -1.0;
+$string <- "foo";
+$escaped_string <- "\"bar\"\n";
+$multiline_string <- """
+  foo
+  bar
+  baz
+""";
+$array <- [1,2,3];
+$dict <- &{
+  "foo" => "bar",
+  "baz" => 1.0
+  1 => 2,
+  [1,2,3] => (4 + 5)
+}
+
+// indexing
+$array[$index]
+$dict[$key]
+$dict.key
+
+// comparison / boolean logic
+$result <- (1 < 2) && (3 >= 5) || ( 5 != 6);
 
 // while loop
 while ($bar) {

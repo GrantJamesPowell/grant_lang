@@ -39,6 +39,8 @@ defmodule Basex.Tokenizer.BasicTest do
     {"1; //foo\n", [{:int, 1, 1}, {:statement_end, 1}]},
     {"1; //foo\n 2;", [{:int, 1, 1}, {:statement_end, 1}, {:int, 2, 2}, {:statement_end, 2}]},
     {"/**/", []},
+    {"/* FOO /* NESTED */ BAR */", []},
+    {"/* FOO /* // NESTED \n */ BAR */", []},
     {"1 /* TEST */ + 2", [{:int, 1, 1}, {:operator, 1, :+}, {:int, 1, 2}]}
   ]
   |> Enum.each(fn {test_case, expected} ->

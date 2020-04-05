@@ -8,7 +8,7 @@ COMPARATOR = (<|<=|==|>=|>)
 ARITHMETIC_OPERATOR = (\*\*|\+|\*|\/|-)
 BOOLEAN_OPERATOR = (&&|\|\|)
 IDENTIFIER = \$[a-zA-Z]+[a-zA-Z0-9]*
-BLOCK_COMMENT = /\*.*\*/
+BLOCK_COMMENT = /\*(.|\n)*\*/
 INLINE_COMMENT = //.*\n
 
 Rules.
