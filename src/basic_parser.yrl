@@ -1,15 +1,21 @@
-Nonterminals list expression expressions.
-Terminals '[' ']' '(' ')' ','
-   var int float bool string operator statement_end.
+Nonterminals list block expression expressions.
+Terminals '[' ']' '(' ')' '{' '}' ','
+   var int float bool string operator if_block statement_end.
 
 Rootsymbol expressions.
 
 expressions -> expression statement_end expressions : ['$1' | '$3'].
 expressions -> expression statement_end : ['$1'].
 
+
 % eval
 expression -> expression operator expression : {extract_token('$2'), '$1', '$3'}.
 expression -> '(' expression ')' : '$2'.
+
+% constructs
+expression -> if_block expression block : {if_expression, '$2', '$3'}.
+block -> '{' expressions '}' : '$2'.
+block -> '{' '}' : [nil].
 
 % List
 expression -> '[' ']' : [].

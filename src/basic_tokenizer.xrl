@@ -16,6 +16,9 @@ Rules.
 
 {INLINE_COMMENT} : skip_token.
 {BLOCK_COMMENT} : skip_token.
+
+if : {token, {if_block, TokenLine}}.
+
 {WHITESPACE}+ : skip_token.
 ; : {token, {statement_end, TokenLine}}.
 

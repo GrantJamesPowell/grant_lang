@@ -14,17 +14,18 @@ defmodule Basex do
 
   def eval(code) do
     {:ok, expressions} = parse(code)
-    evalutate_expressions(expressions, %{vars: %{}})
+    {:ok, _state, result} = evalutate_expressions(expressions, %{vars: %{}})
+    {:ok, result}
   end
 
   def evalutate_expressions(expressions, state) do
-    {_state, result} =
+    {state, result} =
       Enum.reduce(expressions, {state, nil}, fn expression, {state, _} ->
         {:ok, state, result} = evalutate_expression(expression, state)
         {state, result}
       end)
 
-    {:ok, result}
+    {:ok, state, result}
   end
 
   def evalutate_expression({operator, left, right}, state)
@@ -53,6 +54,17 @@ defmodule Basex do
     {:ok, state, Map.fetch!(state.vars, var)}
   end
 
+  def evalutate_expression({:if_expression, condition_expression, success_block}, state) do
+    {:ok, state, condition} = evalutate_expression(condition_expression, state)
+
+    if condition do
+      evalutate_expressions(success_block, state)
+    else
+      {:ok, state, nil}
+    end
+  end
+
   def evalutate_expression(number, state) when is_number(number), do: {:ok, state, number}
   def evalutate_expression(string, state) when is_binary(string), do: {:ok, state, string}
+  def evalutate_expression(bool, state) when is_boolean(bool), do: {:ok, state, bool}
 end
