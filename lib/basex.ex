@@ -110,7 +110,7 @@ defmodule Basex do
     array =
       evaled
       |> Enum.reverse()
-      |> :array.from_list()
+      |> :array.from_list(:out_of_bounds)
 
     {:ok, state, array}
   end
