@@ -21,11 +21,14 @@ defmodule Basex.Tokenizer.BasicTest do
     {"3 * 3", [{:int, 1, 3}, {:operator, 1, :*}, {:int, 1, 3}]},
     {"4 / 4", [{:int, 1, 4}, {:operator, 1, :/}, {:int, 1, 4}]},
     # Comparisons
-    {"6 < 6", [{:int, 1, 6}, {:comparator, 1, :<}, {:int, 1, 6}]},
-    {"7 > 7", [{:int, 1, 7}, {:comparator, 1, :>}, {:int, 1, 7}]},
-    {"8 == 8", [{:int, 1, 8}, {:comparator, 1, :==}, {:int, 1, 8}]},
-    {"9 <= 9", [{:int, 1, 9}, {:comparator, 1, :<=}, {:int, 1, 9}]},
-    {"10 >= 10", [{:int, 1, 10}, {:comparator, 1, :>=}, {:int, 1, 10}]},
+    {"6 < 6", [{:int, 1, 6}, {:operator, 1, :<}, {:int, 1, 6}]},
+    {"7 > 7", [{:int, 1, 7}, {:operator, 1, :>}, {:int, 1, 7}]},
+    {"8 == 8", [{:int, 1, 8}, {:operator, 1, :==}, {:int, 1, 8}]},
+    {"9 <= 9", [{:int, 1, 9}, {:operator, 1, :<=}, {:int, 1, 9}]},
+    {"10 >= 10", [{:int, 1, 10}, {:operator, 1, :>=}, {:int, 1, 10}]},
+    # Boolean Logic
+    {"true || true", [{:bool, 1, true}, {:operator, 1, :||}, {:bool, 1, true}]},
+    {"false && true", [{:bool, 1, false}, {:operator, 1, :&&}, {:bool, 1, true}]},
     # Assignment
     {"11 = 11", [{:int, 1, 11}, {:=, 1}, {:int, 1, 11}]}
   ]

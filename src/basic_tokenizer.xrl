@@ -6,6 +6,7 @@ BOOL       = (true|false)
 WHITESPACE = [\s\t\n\r]
 COMPARATOR = (<|<=|==|>=|>)
 ARITHMETIC_OPERATOR = (\+|\*|\/|-)
+BOOLEAN_OPERATOR = (&&|\|\|)
 
 Rules.
 
@@ -28,9 +29,8 @@ Rules.
 
 % Operators
 {ARITHMETIC_OPERATOR} : {token, {operator, TokenLine, list_to_atom(TokenChars)}}.
-
-% Comparisons
-{COMPARATOR} : {token, {comparator, TokenLine, list_to_atom(TokenChars)}}.
+{BOOLEAN_OPERATOR} : {token, {operator, TokenLine, list_to_atom(TokenChars)}}.
+{COMPARATOR} : {token, {operator, TokenLine, list_to_atom(TokenChars)}}.
 
 % Assignment
 = : {token, {'=', TokenLine}}.
