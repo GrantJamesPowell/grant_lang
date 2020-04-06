@@ -33,7 +33,7 @@ expression -> 'if' expression block              : {'if', '$2', '$3', [nil]}.
 expression -> 'for' variable '<-' expression block : {'for', {'$2', {var, unused}}, '$4', '$5'}.
 expression -> 'for' variable ',' variable '<-' expression block : {'for', {'$2', '$4'}, '$6', '$7'}.
 
-% code blocks
+% Code Blocks
 block -> '{' expressions '}' : '$2'.
 block -> '{' '}' : [nil].
 
