@@ -1,4 +1,6 @@
 defmodule Basex do
+  import :array, only: [is_array: 1]
+
   def tokenize(code) when is_binary(code) do
     code |> to_charlist() |> tokenize()
   end
@@ -64,7 +66,7 @@ defmodule Basex do
     end
   end
 
-  def evalutate_expression({:for, vars, source_expression, loop_expression}, state) do
+  def evalutate_expression({:for, vars, source_expression, loop_expressions}, state) do
     {:ok, state, source} = evalutate_expression(source_expression, state)
 
     {key_identifier, value_identifer} =
@@ -72,6 +74,36 @@ defmodule Basex do
         {{:var, value}, {:var, :unused}} -> {:usused, value}
         {{:var, key}, {:var, value}} -> {key, value}
       end
+
+    normalized_source =
+      cond do
+        is_map(source) ->
+          source
+
+        is_array(source) ->
+          source |> :array.to_list() |> Enum.with_index() |> Enum.map(fn {val, i} -> {i, val} end)
+      end
+
+    {state, results} =
+      Enum.reduce(normalized_source, {state, []}, fn {key, val}, {state, results} ->
+        state =
+          update_in(
+            state.vars,
+            &Map.merge(&1, %{key_identifier => key, value_identifer => val})
+          )
+
+        {:ok, state, result} = evalutate_expressions(loop_expressions, state)
+        {state, [{key, result} | results]}
+      end)
+
+    cond do
+      is_map(source) ->
+        {:ok, state, Map.new(results)}
+
+      is_array(source) ->
+        {:ok, state,
+         Enum.map(results, fn {_i, val} -> val end) |> Enum.reverse() |> array_from_list}
+    end
   end
 
   def evalutate_expression({:map, key_pairs}, state) do
@@ -93,7 +125,7 @@ defmodule Basex do
     result =
       cond do
         is_map(indexable) -> indexable[index]
-        :array.is_array(indexable) -> :array.get(index, indexable)
+        is_array(indexable) -> :array.get(index, indexable)
       end
 
     {:ok, state, result}
@@ -117,7 +149,7 @@ defmodule Basex do
     array =
       evaled
       |> Enum.reverse()
-      |> :array.from_list(:out_of_bounds)
+      |> array_from_list
 
     {:ok, state, array}
   end
@@ -126,4 +158,8 @@ defmodule Basex do
   def evalutate_expression(string, state) when is_binary(string), do: {:ok, state, string}
   def evalutate_expression(bool, state) when is_boolean(bool), do: {:ok, state, bool}
   def evalutate_expression(nil, state), do: {:ok, state, nil}
+
+  defp array_from_list(list) do
+    :array.from_list(list, :out_of_bounds)
+  end
 end
