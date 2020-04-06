@@ -4,6 +4,7 @@ defmodule Basex.Tokenizer.BasicTest do
   [
     # Program Constructs
     {"1; 2", [{:int, 1, 1}, {:statement_end, 1}, {:int, 1, 2}]},
+    {"-1", [{:int, 1, -1}]},
     {"if (true) { 1; }",
      [
        {:if, 1},

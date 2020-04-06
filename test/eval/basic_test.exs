@@ -14,7 +14,9 @@ defmodule Basex.Evaluator.BasicTest do
     {"$i ||= 4; $i", 4},
     {"$i ||= (10 * 2); $i", 20},
     {"!true", false},
-    {"$i <- false; !$i", true}
+    {"$i <- false; !$i", true},
+    {"-10 + -5", -15},
+    {"-10 - -5", -5}
   ]
   |> Enum.each(fn {code, result} ->
     test "code \"#{code}\" evaluates to (#{inspect(result)})" do

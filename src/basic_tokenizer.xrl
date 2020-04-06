@@ -1,7 +1,7 @@
 Definitions.
 
-FLOAT      = [0-9]+\.[0-9]+
-INT        = [0-9]+
+FLOAT      = -?[0-9]+\.[0-9]+
+INT        = -?[0-9]+
 WHITESPACE = [\s\t\n\r]
 IDENTIFIER = [a-zA-Z]+[a-zA-Z0-9]*
 STRING = ".*"
@@ -14,6 +14,11 @@ Rules.
 
 {INLINE_COMMENT} : skip_token.
 {BLOCK_COMMENT} : skip_token.
+
+% Literals
+{STRING} : {token, {string, TokenLine, process_string_literal(TokenChars)}}.
+{FLOAT}  : {token, {float, TokenLine, list_to_float(TokenChars)}}.
+{INT}    : {token, {int, TokenLine, list_to_integer(TokenChars)}}.
 
 %% Keywords
 
@@ -68,11 +73,6 @@ false : {token, {bool, TokenLine, false}}.
 \{    : {token, {'{', TokenLine}}.
 \}    : {token, {'}', TokenLine}}.
 ,     : {token, {',', TokenLine}}.
-
-% Literals
-{STRING} : {token, {string, TokenLine, process_string_literal(TokenChars)}}.
-{FLOAT}  : {token, {float, TokenLine, list_to_float(TokenChars)}}.
-{INT}    : {token, {int, TokenLine, list_to_integer(TokenChars)}}.
 
 % Identifier
 \${IDENTIFIER} : {token, {var, TokenLine, list_to_binary(TokenChars)}}.
