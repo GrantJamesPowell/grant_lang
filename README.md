@@ -43,7 +43,6 @@ Regular expression : Erlang code.
   - [ ] Functions as values?
   - [ ] Anon funcs?
 - [ ] Have && and || short circuit
-- [ ] ! negation operator
 - [ ] Pemdas
 - [ ] String/Array concat (<<)
 - [ ] REPL
@@ -76,6 +75,7 @@ Regular expression : Erlang code.
   - [x] Break Statement
 - [x] $foo++ $foo-- operators
 - [x] $foo ||= $bar operator
+- [x] ! negation operator
 
 ## Sample
 

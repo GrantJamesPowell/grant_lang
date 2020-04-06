@@ -1,7 +1,7 @@
 Nonterminals variable block map_pairs expression expressions comma_seperated_expressions.
 Terminals '[' ']' '(' ')' '{' '}' ',' '<-'
   '++' '--'
-  '||' '&&'
+  '||' '&&' '!'
   '||=' '=>' '&{'
   '>' '<' '<=' '>=' '==' '!='
   '**' '*' '/' '+' '-'
@@ -81,6 +81,7 @@ expression -> expression '==' expression : {'==', '$1', '$3'}.
 % Boolean
 expression -> expression '||' expression : {'||', '$1', '$3'}.
 expression -> expression '&&' expression : {'&&', '$1', '$3'}.
+expression -> '!' expression             : {'not', '$2'}.
 
 % Assignement
 expression -> expression '<-' expression : {'<-', '$1', '$3'}.

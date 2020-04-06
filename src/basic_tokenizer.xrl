@@ -46,7 +46,8 @@ false : {token, {bool, TokenLine, false}}.
 
 % Bools
 &&    : {token, {'&&', TokenLine}}.
-\|\|    : {token, {'||', TokenLine}}.
+\|\|  : {token, {'||', TokenLine}}.
+!     : {token, {'!', TokenLine}}.
 
 % Maps
 &\{   : {token, {'&{', TokenLine}}.

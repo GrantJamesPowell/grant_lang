@@ -77,6 +77,7 @@ defmodule Basex.Tokenizer.BasicTest do
     # Boolean Logic
     {"true || true", [{:bool, 1, true}, {:||, 1}, {:bool, 1, true}]},
     {"false && true", [{:bool, 1, false}, {:&&, 1}, {:bool, 1, true}]},
+    {"!false", [{:!, 1}, {:bool, 1, false}]},
     # Assignment
     {"$a", [{:var, 1, "$a"}]},
     {"$a123", [{:var, 1, "$a123"}]},

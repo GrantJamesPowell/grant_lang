@@ -34,8 +34,10 @@ defmodule Basex.Parser.BasicTest do
     {"3 + 4;", [{:+, 3, 4}]},
     {"5 * 6;", [{:*, 5, 6}]},
     {"7 / 8;", [{:/, 7, 8}]},
+    # Boolean
     {"true || false;", [{:||, true, false}]},
     {"false && true;", [{:&&, false, true}]},
+    {"!false", [{:not, false}]},
     # Parens
     {"(2 + 3) * 4;", [{:*, {:+, 2, 3}, 4}]},
     {"((2 + 3) * 4) - 5;", [{:-, {:*, {:+, 2, 3}, 4}, 5}]},
