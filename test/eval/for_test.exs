@@ -7,7 +7,9 @@ defmodule Basex.Evaluator.ForTest do
     {"for $i <- [1,2,3] { $i + 1 }", array_from_list.([2, 3, 4])},
     {"for $index, $value <- [1,2,3] { $index + $value }", array_from_list.([1, 3, 5])},
     {"for $value <- &{ 1 => 2 } { $value + 1 }", %{1 => 3}},
-    {"for $key, $value <- &{ 1 => 2 } { [$key, $value] }", %{1 => array_from_list.([1, 2])}}
+    {"for $key, $value <- &{ 1 => 2 } { [$key, $value] }", %{1 => array_from_list.([1, 2])}},
+    {"$i <- 1; for $j <- [1,2,3] { $i <- $i + $j }; $i", 7},
+    {"$i <- 1; for $j <- &{ 1 => 2 } { $i <- $i + $j }; $i", 3}
   ]
   |> Enum.each(fn {code, result} ->
     test "code \"#{code}\" evaluates to (#{inspect(result)})" do

@@ -37,11 +37,6 @@ Regular expression : Erlang code.
   - [ ] Heredoc
   - [ ] escaped newlines
   - [ ] escaped quotes (the current processer is striping the out with `replace`)
-- [ ] For loops
-  - [ ] for ($val <- $array) { $val + 1 } // $array
-  - [ ] for ($val <- $map) { $val + 1 } // $map
-  - [ ] for ($index, $val <- $array) { $val + 1 } // $array
-  - [ ] for ($key, $val <- $map) { $val + 1 } // $map
 - [ ] While Loops
   - [ ] Break Statement
 - [ ] Functions
@@ -75,6 +70,11 @@ Regular expression : Erlang code.
 - [x] Arrays
   - [x] literals
   - [x] numeric indexing ($arrays[10])
+- [x] For loops
+  - [x] for ($val <- $array) { $val + 1 } // $array
+  - [x] for ($val <- $map) { $val + 1 } // $map
+  - [x] for ($index, $val <- $array) { $val + 1 } // $array
+  - [x] for ($key, $val <- $map) { $val + 1 } // $map
 
 ## Sample
 
@@ -110,14 +110,15 @@ $map.key // only for string keys
 $result <- (1 < 2) && (3 >= 5) || ( 5 != 6);
 
 // if statement 
-if (true || false) { "foo"; } else { "bar"; };
+if (true || false) { "foo" } else { "bar" };
 
 // while loop
-while ($bar) { if (true) { break; }; };
+$i <- 1;
+while ($i < 4) { $i <- $i + 1 };
 
 // for loop
 for ($i <= $foo) {
-  if ($i > 2) { std_lib.echo($i) } else { $i };
+  if ($i > 2) { $std_lib.echo($i) } else { $i };
 };
 
 // for loops as `map`
