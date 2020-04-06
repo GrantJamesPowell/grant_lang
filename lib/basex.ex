@@ -56,6 +56,22 @@ defmodule Basex do
     {:ok, state, Map.fetch!(state.vars, var)}
   end
 
+  def evalutate_expression({:while, condition_expression, block}, state) do
+    {:ok, state, condition} = evalutate_expression(condition_expression, state)
+
+    if condition do
+      {:ok, state, result} = evalutate_expressions(block, state)
+
+      if result == :break do
+        {:ok, state, nil}
+      else
+        evalutate_expression({:while, condition_expression, block}, state)
+      end
+    else
+      {:ok, state, nil}
+    end
+  end
+
   def evalutate_expression({:if, condition_expression, success_block, else_block}, state) do
     {:ok, state, condition} = evalutate_expression(condition_expression, state)
 
@@ -158,6 +174,7 @@ defmodule Basex do
   def evalutate_expression(string, state) when is_binary(string), do: {:ok, state, string}
   def evalutate_expression(bool, state) when is_boolean(bool), do: {:ok, state, bool}
   def evalutate_expression(nil, state), do: {:ok, state, nil}
+  def evalutate_expression(:break, state), do: {:ok, state, :break}
 
   defp array_from_list(list) do
     :array.from_list(list, :out_of_bounds)

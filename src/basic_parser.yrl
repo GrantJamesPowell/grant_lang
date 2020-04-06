@@ -2,7 +2,7 @@ Nonterminals variable block map_pairs expression expressions comma_seperated_exp
 Terminals '[' ']' '(' ')' '{' '}' ',' '<-'
    var int float nil bool string operator identifier
    map_start fat_right_arrow dot
-   'if' 'else' 'for' while statement_end.
+   'if' 'else' 'for' while break statement_end.
 
 Rootsymbol expressions.
 
@@ -12,6 +12,7 @@ expressions -> expression : ['$1'].
 
 % Literals
 expression -> nil      : nil.
+expression -> break    : break.
 expression -> int      : extract_token('$1').
 expression -> bool     : extract_token('$1').
 expression -> float    : extract_token('$1').

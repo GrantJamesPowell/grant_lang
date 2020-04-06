@@ -22,6 +22,7 @@ if    : {token, {'if', TokenLine}}.
 else  : {token, {'else', TokenLine}}.
 for   : {token, {'for', TokenLine}}.
 while : {token, {while, TokenLine}}.
+break : {token, {break, TokenLine}}.
 \.    : {token, {dot, TokenLine}}.
 <-    : {token, {'<-', TokenLine}}.
 ;     : {token, {statement_end, TokenLine}}.
