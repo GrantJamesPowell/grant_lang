@@ -28,6 +28,7 @@ break : {token, {break, TokenLine}}.
 ;     : {token, {statement_end, TokenLine}}.
 \+\+  : {token, {'++', TokenLine}}.
 --    : {token, {'--', TokenLine}}.
+\|\|=   : {token, {'||=', TokenLine}}.
 
 % Literals
 nil      : {token, {nil, TokenLine}}.

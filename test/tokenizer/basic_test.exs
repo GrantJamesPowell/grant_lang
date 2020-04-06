@@ -116,7 +116,10 @@ defmodule Basex.Tokenizer.BasicTest do
      [{:while, 1}, {:"(", 1}, {:bool, 1, true}, {:")", 1}, {:"{", 1}, {:int, 1, 1}, {:"}", 1}]},
     # Increment / Decrement
     {"$i++", [{:var, 1, "$i"}, {:++, 1}]},
-    {"$i--", [{:var, 1, "$i"}, {:--, 1}]}
+    {"$i--", [{:var, 1, "$i"}, {:--, 1}]},
+    # ||=
+    {"$i ||= 2", [{:var, 1, "$i"}, {:"||=", 1}, {:int, 1, 2}]},
+    {"$i ||= $j", [{:var, 1, "$i"}, {:"||=", 1}, {:var, 1, "$j"}]}
   ]
   |> Enum.each(fn {test_case, expected} ->
     test "it tokenizes \"#{test_case}\" correctly" do

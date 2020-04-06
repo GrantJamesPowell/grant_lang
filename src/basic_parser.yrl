@@ -1,5 +1,5 @@
 Nonterminals variable block map_pairs expression expressions comma_seperated_expressions.
-Terminals '[' ']' '(' ')' '{' '}' ',' '<-' '++' '--'
+Terminals '[' ']' '(' ')' '{' '}' ',' '<-' '++' '--' '||='
    var int float nil bool string operator identifier
    map_start fat_right_arrow dot
    'if' 'else' 'for' while break statement_end.
@@ -58,9 +58,10 @@ comma_seperated_expressions -> expression ',' comma_seperated_expressions : ['$1
 comma_seperated_expressions -> expression : ['$1'].
 
 % Operators
+expression -> expression '<-' expression     : {'<-', '$1', '$3'}.
+expression -> variable '||=' expression      : {'||=', '$1', '$3'}.
+expression -> '(' expression ')'             : '$2'.
 expression -> expression operator expression : {extract_token('$2'), '$1', '$3'}.
-expression -> expression '<-' expression : {'<-', '$1', '$3'}.
-expression -> '(' expression ')' : '$2'.
 
 Erlang code.
 

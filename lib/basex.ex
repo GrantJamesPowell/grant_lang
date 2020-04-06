@@ -183,6 +183,15 @@ defmodule Basex do
     {:ok, state, array}
   end
 
+  def evalutate_expression({:"||=", {:var, var}, expression}, state) do
+    if state.vars[var] do
+      {:ok, state, state.vars[var]}
+    else
+      {:ok, state, value} = evalutate_expression(expression, state)
+      {:ok, put_in(state.vars[var], value), value}
+    end
+  end
+
   def evalutate_expression(number, state) when is_number(number), do: {:ok, state, number}
   def evalutate_expression(string, state) when is_binary(string), do: {:ok, state, string}
   def evalutate_expression(bool, state) when is_boolean(bool), do: {:ok, state, bool}
