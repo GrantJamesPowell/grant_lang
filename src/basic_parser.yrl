@@ -1,5 +1,5 @@
 Nonterminals variable block map_pairs expression expressions comma_seperated_expressions.
-Terminals '[' ']' '(' ')' '{' '}' ',' '<-'
+Terminals '[' ']' '(' ')' '{' '}' ',' '<-' '++' '--'
    var int float nil bool string operator identifier
    map_start fat_right_arrow dot
    'if' 'else' 'for' while break statement_end.
@@ -33,6 +33,10 @@ expression -> 'if' expression block              : {'if', '$2', '$3', [nil]}.
 % For
 expression -> 'for' variable '<-' expression block : {'for', {'$2', {var, unused}}, '$4', '$5'}.
 expression -> 'for' variable ',' variable '<-' expression block : {'for', {'$2', '$4'}, '$6', '$7'}.
+
+% Increment / Decrement
+expression -> expression '++' : {increment, '$1'}.
+expression -> expression '--' : {decrement, '$1'}.
 
 % While
 expression -> while expression block : {while, '$2', '$3'}.

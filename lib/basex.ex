@@ -122,6 +122,19 @@ defmodule Basex do
     end
   end
 
+  def evalutate_expression({adjust, {:var, variable} = expression}, state)
+      when adjust in [:increment, :decrement] do
+    {:ok, state, value} = evalutate_expression(expression, state)
+
+    new_value =
+      case adjust do
+        :increment -> value + 1
+        :decrement -> value - 1
+      end
+
+    {:ok, put_in(state.vars[variable], new_value), new_value}
+  end
+
   def evalutate_expression({:map, key_pairs}, state) do
     map =
       key_pairs

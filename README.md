@@ -37,8 +37,6 @@ Regular expression : Erlang code.
   - [ ] Heredoc
   - [ ] escaped newlines
   - [ ] escaped quotes (the current processer is striping the out with `replace`)
-- [ ] While Loops
-  - [ ] Break Statement
 - [ ] Functions
   - [ ] Call "stdlib functions"
   - [ ] Define functions
@@ -46,7 +44,6 @@ Regular expression : Erlang code.
   - [ ] Anon funcs?
 - [ ] Have && and || short circuit
 - [ ] ! negation operator
-- [ ] $foo++ $foo-- operators
 - [ ] $foo ||= $bar operator
 - [ ] String/Array concat (<<)
 - [ ] REPL
@@ -75,6 +72,9 @@ Regular expression : Erlang code.
   - [x] for ($val <- $map) { $val + 1 } // $map
   - [x] for ($index, $val <- $array) { $val + 1 } // $array
   - [x] for ($key, $val <- $map) { $val + 1 } // $map
+- [x] While Loops
+  - [x] Break Statement
+- [x] $foo++ $foo-- operators
 
 ## Sample
 
@@ -100,6 +100,10 @@ $map <- &{
   1 => 2,
   [1,2,3] => (4 + 5)
 }
+
+//increment + decrement
+$i++;
+$i--;
 
 // indexing
 $array[$index]
