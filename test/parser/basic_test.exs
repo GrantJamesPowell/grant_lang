@@ -43,10 +43,15 @@ defmodule Basex.Parser.BasicTest do
     # Comments
     {"12 + /* COMMENT */ 13;", [{:+, 12, 13}]},
     {"12 + 13; // foo\n", [{:+, 12, 13}]},
-    # blocks
-    {"if (true) {};", [{:if_expression, true, [nil], [nil]}]},
-    {"if (true) { 1 + 2; };", [{:if_expression, true, [{:+, 1, 2}], [nil]}]},
-    {"if (false) {} else { 3 + 4; };", [{:if_expression, false, [nil], [{:+, 3, 4}]}]}
+    # Blocks
+    {"if (true) {};", [{:if, true, [nil], [nil]}]},
+    {"if (true) { 1 + 2; };", [{:if, true, [{:+, 1, 2}], [nil]}]},
+    {"if (false) {} else { 3 + 4; };", [{:if, false, [nil], [{:+, 3, 4}]}]},
+    # For Loops
+    {"for $i <- [1,2,3] { $i + 1 }",
+     [{:for, {{:var, "$i"}, {:var, :unused}}, {:array, [1, 2, 3]}, [{:+, {:var, "$i"}, 1}]}]},
+    {"for $i, $v <- [1,2] { $i + $v }",
+     [{:for, {{:var, "$i"}, {:var, "$v"}}, {:array, [1, 2]}, [{:+, {:var, "$i"}, {:var, "$v"}}]}]}
   ]
   |> Enum.each(fn {code, expected} ->
     test "It can parse literal \"#{code}\" into #{inspect(Macro.escape(expected))}" do

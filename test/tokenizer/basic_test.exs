@@ -80,8 +80,8 @@ defmodule Basex.Tokenizer.BasicTest do
     # Assignment
     {"$a", [{:var, 1, "$a"}]},
     {"$a123", [{:var, 1, "$a123"}]},
-    {"$a <- 11", [{:var, 1, "$a"}, {:operator, 1, :<-}, {:int, 1, 11}]},
-    {"$a <- $b", [{:var, 1, "$a"}, {:operator, 1, :<-}, {:var, 1, "$b"}]},
+    {"$a <- 11", [{:var, 1, "$a"}, {:<-, 1}, {:int, 1, 11}]},
+    {"$a <- $b", [{:var, 1, "$a"}, {:<-, 1}, {:var, 1, "$b"}]},
     # Comments
     {"//foo\n", []},
     {"1; //foo\n", [{:int, 1, 1}, {:statement_end, 1}]},
@@ -91,7 +91,26 @@ defmodule Basex.Tokenizer.BasicTest do
     {"/* FOO /* // NESTED \n */ BAR */", []},
     {"1 /* TEST */ + 2", [{:int, 1, 1}, {:operator, 1, :+}, {:int, 1, 2}]},
     # Indexing
-    {"$foo[1]", [{:var, 1, "$foo"}, {:"[", 1}, {:int, 1, 1}, {:"]", 1}]}
+    {"$foo[1]", [{:var, 1, "$foo"}, {:"[", 1}, {:int, 1, 1}, {:"]", 1}]},
+    # For loops
+    {"for $i <- [1,2,3] { $i + 1 }",
+     [
+       {:for, 1},
+       {:var, 1, "$i"},
+       {:<-, 1},
+       {:"[", 1},
+       {:int, 1, 1},
+       {:",", 1},
+       {:int, 1, 2},
+       {:",", 1},
+       {:int, 1, 3},
+       {:"]", 1},
+       {:"{", 1},
+       {:var, 1, "$i"},
+       {:operator, 1, :+},
+       {:int, 1, 1},
+       {:"}", 1}
+     ]}
   ]
   |> Enum.each(fn {test_case, expected} ->
     test "it tokenizes \"#{test_case}\" correctly" do

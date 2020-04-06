@@ -54,10 +54,7 @@ defmodule Basex do
     {:ok, state, Map.fetch!(state.vars, var)}
   end
 
-  def evalutate_expression(
-        {:if_expression, condition_expression, success_block, else_block},
-        state
-      ) do
+  def evalutate_expression({:if, condition_expression, success_block, else_block}, state) do
     {:ok, state, condition} = evalutate_expression(condition_expression, state)
 
     if condition do
@@ -65,6 +62,16 @@ defmodule Basex do
     else
       evalutate_expressions(else_block, state)
     end
+  end
+
+  def evalutate_expression({:for, vars, source_expression, loop_expression}, state) do
+    {:ok, state, source} = evalutate_expression(source_expression, state)
+
+    {key_identifier, value_identifer} =
+      case vars do
+        {{:var, value}, {:var, :unused}} -> {:usused, value}
+        {{:var, key}, {:var, value}} -> {key, value}
+      end
   end
 
   def evalutate_expression({:map, key_pairs}, state) do

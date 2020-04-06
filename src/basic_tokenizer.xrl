@@ -22,7 +22,7 @@ if   : {token, {'if', TokenLine}}.
 else : {token, {'else', TokenLine}}.
 for  : {token, {'for', TokenLine}}.
 \.   : {token, {dot, TokenLine}}.
-<-   : {token, {operator, TokenLine, list_to_atom(TokenChars)}}.
+<-   : {token, {'<-', TokenLine}}.
 ;    : {token, {statement_end, TokenLine}}.
 
 % Literals
