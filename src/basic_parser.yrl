@@ -1,7 +1,11 @@
 Nonterminals variable block map_pairs expression expressions comma_seperated_expressions.
-Terminals '[' ']' '(' ')' '{' '}' ',' '<-' '++' '--' '||='
-   var int float nil bool string operator identifier
-   map_start fat_right_arrow dot
+Terminals '[' ']' '(' ')' '{' '}' ',' '<-'
+  '++' '--'
+  '||' '&&'
+  '||=' '=>' '&{'
+  '>' '<' '<=' '>=' '==' '!='
+  '**' '*' '/' '+' '-'
+   var int float nil bool string identifier dot
    'if' 'else' 'for' while break statement_end.
 
 Rootsymbol expressions.
@@ -46,9 +50,9 @@ block -> '{' expressions '}' : '$2'.
 block -> '{' '}' : [nil].
 
 % Maps
-expression -> map_start map_pairs : {map, '$2'}.
-map_pairs -> ',' expression fat_right_arrow expression map_pairs : [{'$2', '$4'} | '$5'].
-map_pairs -> expression fat_right_arrow expression map_pairs : [{'$1', '$3'} | '$4'].
+expression -> '&{' map_pairs : {map, '$2'}.
+map_pairs -> ',' expression '=>' expression map_pairs : [{'$2', '$4'} | '$5'].
+map_pairs -> expression '=>' expression map_pairs : [{'$1', '$3'} | '$4'].
 map_pairs -> '}' : [].
 
 % Arrays
@@ -58,10 +62,34 @@ comma_seperated_expressions -> expression ',' comma_seperated_expressions : ['$1
 comma_seperated_expressions -> expression : ['$1'].
 
 % Operators
-expression -> expression '<-' expression     : {'<-', '$1', '$3'}.
-expression -> variable '||=' expression      : {'||=', '$1', '$3'}.
-expression -> '(' expression ')'             : '$2'.
-expression -> expression operator expression : {extract_token('$2'), '$1', '$3'}.
+
+% Math
+expression -> expression '**' expression : {'**', '$1', '$3'}.
+expression -> expression '+' expression  : {'+', '$1', '$3'}.
+expression -> expression '-' expression  : {'-', '$1', '$3'}.
+expression -> expression '*' expression  : {'*', '$1', '$3'}.
+expression -> expression '/' expression  : {'/', '$1', '$3'}.
+
+% Compare
+expression -> expression '<' expression  : {'<', '$1', '$3'}.
+expression -> expression '>' expression  : {'>', '$1', '$3'}.
+expression -> expression '<=' expression : {'<=', '$1', '$3'}.
+expression -> expression '>=' expression : {'>=', '$1', '$3'}.
+expression -> expression '!=' expression : {'!=', '$1', '$3'}.
+expression -> expression '==' expression : {'==', '$1', '$3'}.
+
+% Boolean
+expression -> expression '||' expression : {'||', '$1', '$3'}.
+expression -> expression '&&' expression : {'&&', '$1', '$3'}.
+
+% Assignement
+expression -> expression '<-' expression : {'<-', '$1', '$3'}.
+
+% Or Equals
+expression -> variable '||=' expression  : {'||=', '$1', '$3'}.
+
+% Parens
+expression -> '(' expression ')'         : '$2'.
 
 Erlang code.
 

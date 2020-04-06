@@ -44,6 +44,7 @@ Regular expression : Erlang code.
   - [ ] Anon funcs?
 - [ ] Have && and || short circuit
 - [ ] ! negation operator
+- [ ] Pemdas
 - [ ] String/Array concat (<<)
 - [ ] REPL
 

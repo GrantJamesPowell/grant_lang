@@ -20,7 +20,7 @@ defmodule Basex.Tokenizer.BasicTest do
        {:if, 1},
        {:"(", 1},
        {:bool, 1, true},
-       {:operator, 1, :||},
+       {:||, 1},
        {:bool, 1, false},
        {:")", 1},
        {:"{", 1},
@@ -43,13 +43,13 @@ defmodule Basex.Tokenizer.BasicTest do
     # Maps
     {"&{ 1 => 2, 3 => 4}",
      [
-       {:map_start, 1},
+       {:"&{", 1},
        {:int, 1, 1},
-       {:fat_right_arrow, 1},
+       {:"=>", 1},
        {:int, 1, 2},
        {:",", 1},
        {:int, 1, 3},
-       {:fat_right_arrow, 1},
+       {:"=>", 1},
        {:int, 1, 4},
        {:"}", 1}
      ]},
@@ -63,20 +63,20 @@ defmodule Basex.Tokenizer.BasicTest do
     {"{3}", [{:"{", 1}, {:int, 1, 3}, {:"}", 1}]},
     {"[1, 2]", [{:"[", 1}, {:int, 1, 1}, {:",", 1}, {:int, 1, 2}, {:"]", 1}]},
     # Operators
-    {"1 + 1", [{:int, 1, 1}, {:operator, 1, :+}, {:int, 1, 1}]},
-    {"2 - 2", [{:int, 1, 2}, {:operator, 1, :-}, {:int, 1, 2}]},
-    {"3 * 3", [{:int, 1, 3}, {:operator, 1, :*}, {:int, 1, 3}]},
-    {"4 / 4", [{:int, 1, 4}, {:operator, 1, :/}, {:int, 1, 4}]},
+    {"1 + 1", [{:int, 1, 1}, {:+, 1}, {:int, 1, 1}]},
+    {"2 - 2", [{:int, 1, 2}, {:-, 1}, {:int, 1, 2}]},
+    {"3 * 3", [{:int, 1, 3}, {:*, 1}, {:int, 1, 3}]},
+    {"4 / 4", [{:int, 1, 4}, {:/, 1}, {:int, 1, 4}]},
     # Comparisons
-    {"6 < 6", [{:int, 1, 6}, {:operator, 1, :<}, {:int, 1, 6}]},
-    {"7 > 7", [{:int, 1, 7}, {:operator, 1, :>}, {:int, 1, 7}]},
-    {"8 == 8", [{:int, 1, 8}, {:operator, 1, :==}, {:int, 1, 8}]},
-    {"9 <= 9", [{:int, 1, 9}, {:operator, 1, :<=}, {:int, 1, 9}]},
-    {"10 >= 10", [{:int, 1, 10}, {:operator, 1, :>=}, {:int, 1, 10}]},
-    {"11 != 12", [{:int, 1, 11}, {:operator, 1, :!=}, {:int, 1, 12}]},
+    {"6 < 6", [{:int, 1, 6}, {:<, 1}, {:int, 1, 6}]},
+    {"7 > 7", [{:int, 1, 7}, {:>, 1}, {:int, 1, 7}]},
+    {"8 == 8", [{:int, 1, 8}, {:==, 1}, {:int, 1, 8}]},
+    {"9 <= 9", [{:int, 1, 9}, {:<=, 1}, {:int, 1, 9}]},
+    {"10 >= 10", [{:int, 1, 10}, {:>=, 1}, {:int, 1, 10}]},
+    {"11 != 12", [{:int, 1, 11}, {:!=, 1}, {:int, 1, 12}]},
     # Boolean Logic
-    {"true || true", [{:bool, 1, true}, {:operator, 1, :||}, {:bool, 1, true}]},
-    {"false && true", [{:bool, 1, false}, {:operator, 1, :&&}, {:bool, 1, true}]},
+    {"true || true", [{:bool, 1, true}, {:||, 1}, {:bool, 1, true}]},
+    {"false && true", [{:bool, 1, false}, {:&&, 1}, {:bool, 1, true}]},
     # Assignment
     {"$a", [{:var, 1, "$a"}]},
     {"$a123", [{:var, 1, "$a123"}]},
@@ -89,7 +89,7 @@ defmodule Basex.Tokenizer.BasicTest do
     {"/**/", []},
     {"/* FOO /* NESTED */ BAR */", []},
     {"/* FOO /* // NESTED \n */ BAR */", []},
-    {"1 /* TEST */ + 2", [{:int, 1, 1}, {:operator, 1, :+}, {:int, 1, 2}]},
+    {"1 /* TEST */ + 2", [{:int, 1, 1}, {:+, 1}, {:int, 1, 2}]},
     # Indexing
     {"$foo[1]", [{:var, 1, "$foo"}, {:"[", 1}, {:int, 1, 1}, {:"]", 1}]},
     # For loops
@@ -107,7 +107,7 @@ defmodule Basex.Tokenizer.BasicTest do
        {:"]", 1},
        {:"{", 1},
        {:var, 1, "$i"},
-       {:operator, 1, :+},
+       {:+, 1},
        {:int, 1, 1},
        {:"}", 1}
      ]},

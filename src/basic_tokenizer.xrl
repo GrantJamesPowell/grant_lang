@@ -2,11 +2,7 @@ Definitions.
 
 FLOAT      = [0-9]+\.[0-9]+
 INT        = [0-9]+
-BOOL       = (true|false)
 WHITESPACE = [\s\t\n\r]
-COMPARATOR = (<|<=|!=|==|>=|>)
-ARITHMETIC_OPERATOR = (\*\*|\+|\*|\/|-)
-BOOLEAN_OPERATOR = (&&|\|\|)
 IDENTIFIER = [a-zA-Z]+[a-zA-Z0-9]*
 STRING = ".*"
 BLOCK_COMMENT = /\*(.|\n)*\*/
@@ -14,48 +10,72 @@ INLINE_COMMENT = //.*\n
 
 Rules.
 
+% Comments
+
 {INLINE_COMMENT} : skip_token.
 {BLOCK_COMMENT} : skip_token.
 
-% Keywords
+%% Keywords
+
 if    : {token, {'if', TokenLine}}.
 else  : {token, {'else', TokenLine}}.
 for   : {token, {'for', TokenLine}}.
 while : {token, {while, TokenLine}}.
 break : {token, {break, TokenLine}}.
+nil   : {token, {nil, TokenLine}}.
+true  : {token, {bool, TokenLine, true}}.
+false : {token, {bool, TokenLine, false}}.
 \.    : {token, {dot, TokenLine}}.
 <-    : {token, {'<-', TokenLine}}.
 ;     : {token, {statement_end, TokenLine}}.
+
+% or equals
+\|\|= : {token, {'||=', TokenLine}}.
+
+% Increment / Decrement
 \+\+  : {token, {'++', TokenLine}}.
 --    : {token, {'--', TokenLine}}.
-\|\|=   : {token, {'||=', TokenLine}}.
+
+% Compare
+==    : {token, {'==', TokenLine}}.
+!=    : {token, {'!=', TokenLine}}.
+<=    : {token, {'<=', TokenLine}}.
+>=    : {token, {'>=', TokenLine}}.
+<     : {token, {'<', TokenLine}}.
+>     : {token, {'>', TokenLine}}.
+
+% Bools
+&&    : {token, {'&&', TokenLine}}.
+\|\|    : {token, {'||', TokenLine}}.
+
+% Maps
+&\{   : {token, {'&{', TokenLine}}.
+=>    : {token, {'=>', TokenLine}}.
+
+% Math
+\*\*  : {token, {'**', TokenLine}}.
+\*    : {token, {'*', TokenLine}}.
+\/    : {token, {'/', TokenLine}}.
+\+    : {token, {'+', TokenLine}}.
+\-    : {token, {'-', TokenLine}}.
+
+% Grouping
+\[    : {token, {'[', TokenLine}}.
+\]    : {token, {']', TokenLine}}.
+\(    : {token, {'(', TokenLine}}.
+\)    : {token, {')', TokenLine}}.
+\{    : {token, {'{', TokenLine}}.
+\}    : {token, {'}', TokenLine}}.
+,     : {token, {',', TokenLine}}.
 
 % Literals
-nil      : {token, {nil, TokenLine}}.
 {STRING} : {token, {string, TokenLine, process_string_literal(TokenChars)}}.
 {FLOAT}  : {token, {float, TokenLine, list_to_float(TokenChars)}}.
 {INT}    : {token, {int, TokenLine, list_to_integer(TokenChars)}}.
-{BOOL}   : {token, {bool, TokenLine, list_to_existing_atom(TokenChars)}}.
-&\{      : {token, {map_start, TokenLine}}.
-=>       : {token, {fat_right_arrow, TokenLine}}.
 
 % Identifier
 \${IDENTIFIER} : {token, {var, TokenLine, list_to_binary(TokenChars)}}.
 {IDENTIFIER}   : {token, {identifier, TokenLine, list_to_binary(TokenChars)}}.
-
-% Groupings
-\[ : {token, {'[', TokenLine}}.
-\] : {token, {']', TokenLine}}.
-\( : {token, {'(', TokenLine}}.
-\) : {token, {')', TokenLine}}.
-\{ : {token, {'{', TokenLine}}.
-\} : {token, {'}', TokenLine}}.
-,  : {token, {',', TokenLine}}.
-
-% Operators
-{ARITHMETIC_OPERATOR} : {token, {operator, TokenLine, list_to_atom(TokenChars)}}.
-{BOOLEAN_OPERATOR} : {token, {operator, TokenLine, list_to_atom(TokenChars)}}.
-{COMPARATOR} : {token, {operator, TokenLine, list_to_atom(TokenChars)}}.
 
 % Non significant whitespace
 {WHITESPACE}+ : skip_token.
