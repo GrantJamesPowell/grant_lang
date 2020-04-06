@@ -1,9 +1,6 @@
 # GrantLang
 
-Basic Lang Spec
-http://media.salford-systems.com/pdf/spm7/BasicProgLang.pdf
-https://en.wikipedia.org/wiki/BASIC
-https://en.wikipedia.org/wiki/Tiny_BASIC
+A (Terrible) Beam Language
 
 Good articles
 https://andrealeopardi.com/posts/tokenizing-and-parsing-in-elixir-using-leex-and-yecc/
@@ -23,6 +20,7 @@ https://ruslanspivak.com/lsbasi-part1/
 Notes
 
 Vocab:
+
 A lexer will tokenize a sequence of bytes.
 
 The syntax of a leex rule is this:
@@ -41,10 +39,18 @@ Regular expression : Erlang code.
   - [ ] Define functions
   - [ ] Functions as values?
   - [ ] Anon funcs?
+  - [ ] import / export
 - [ ] Have && and || short circuit
 - [ ] Pemdas
 - [ ] String/Array concat (<<)
 - [ ] REPL
+- [ ] Basex -> GrantLang full name change
+- [ ] Split out GrantLang vm into its own module
+- [ ] Mix compiler to load `.grant` files into a project
+- [ ] Concurrency
+  - [ ] `@foo` `@bar` BEAM node global vars
+  - [ ] `async` && `await`
+  - [ ] `atomic { expressions... }` block syntax
 
 # DONE
 
@@ -100,16 +106,17 @@ $map <- &{
   "baz" => 1.0
   1 => 2,
   [1,2,3] => (4 + 5)
-}
+};
 
 //increment + decrement
 $i++;
 $i--;
 
 // indexing
-$array[$index]
-$map[$key]
-$map.key // only for string keys
+$array[1];
+$array[$index];
+$map[$key];
+$map.key; // only for string keys
 
 // comparison / boolean logic
 $result <- (1 < 2) && (3 >= 5) || ( 5 != 6);
@@ -118,8 +125,9 @@ $result <- (1 < 2) && (3 >= 5) || ( 5 != 6);
 if (true || false) { "foo" } else { "bar" };
 
 // while loop
-$i <- 1;
-while ($i < 4) { $i <- $i + 1 };
+$i <- 1; 
+
+while ($i < 4) { $i++ };
 
 // for loop
 for ($i <= $foo) {
@@ -130,7 +138,7 @@ for ($i <= $foo) {
 $result <- for ($i <- [1,2,3]) { $i + 1 } // $result == [2,3,4]
 
 // assignment from an if statement
-$result <- if ($RAND > 0.5) { 4; } else { 5; };
+$result <- if ($RAND > 0.5) { 4 } else { 5 };
 ```
 
 ## General Notes
