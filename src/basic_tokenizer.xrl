@@ -32,7 +32,7 @@ true  : {token, {bool, TokenLine, true}}.
 false : {token, {bool, TokenLine, false}}.
 \.    : {token, {dot, TokenLine}}.
 <-    : {token, {'<-', TokenLine}}.
-;     : {token, {statement_end, TokenLine}}.
+;     : {token, {';', TokenLine}}.
 
 % or equals
 \|\|= : {token, {'||=', TokenLine}}.

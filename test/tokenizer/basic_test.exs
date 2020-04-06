@@ -3,7 +3,7 @@ defmodule Basex.Tokenizer.BasicTest do
 
   [
     # Program Constructs
-    {"1; 2", [{:int, 1, 1}, {:statement_end, 1}, {:int, 1, 2}]},
+    {"1; 2", [{:int, 1, 1}, {';', 1}, {:int, 1, 2}]},
     {"-1", [{:int, 1, -1}]},
     {"if (true) { 1; }",
      [
@@ -13,7 +13,7 @@ defmodule Basex.Tokenizer.BasicTest do
        {:")", 1},
        {:"{", 1},
        {:int, 1, 1},
-       {:statement_end, 1},
+       {';', 1},
        {:"}", 1}
      ]},
     {"if (true || false) { 1; } else { 2; }",
@@ -26,12 +26,12 @@ defmodule Basex.Tokenizer.BasicTest do
        {:")", 1},
        {:"{", 1},
        {:int, 1, 1},
-       {:statement_end, 1},
+       {';', 1},
        {:"}", 1},
        {:else, 1},
        {:"{", 1},
        {:int, 1, 2},
-       {:statement_end, 1},
+       {';', 1},
        {:"}", 1}
      ]},
     {"  \n\s\t", []},
@@ -86,8 +86,8 @@ defmodule Basex.Tokenizer.BasicTest do
     {"$a <- $b", [{:var, 1, "$a"}, {:<-, 1}, {:var, 1, "$b"}]},
     # Comments
     {"//foo\n", []},
-    {"1; //foo\n", [{:int, 1, 1}, {:statement_end, 1}]},
-    {"1; //foo\n 2;", [{:int, 1, 1}, {:statement_end, 1}, {:int, 2, 2}, {:statement_end, 2}]},
+    {"1; //foo\n", [{:int, 1, 1}, {';', 1}]},
+    {"1; //foo\n 2;", [{:int, 1, 1}, {';', 1}, {:int, 2, 2}, {';', 2}]},
     {"/**/", []},
     {"/* FOO /* NESTED */ BAR */", []},
     {"/* FOO /* // NESTED \n */ BAR */", []},

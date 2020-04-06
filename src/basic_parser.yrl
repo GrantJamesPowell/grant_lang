@@ -6,12 +6,12 @@ Terminals '[' ']' '(' ')' '{' '}' ',' '<-'
   '>' '<' '<=' '>=' '==' '!='
   '**' '*' '/' '+' '-'
    var int float nil bool string identifier dot
-   'if' 'else' 'for' while break statement_end.
+   'if' 'else' 'for' while break ';'.
 
 Rootsymbol expressions.
 
-expressions -> expression statement_end expressions : ['$1' | '$3'].
-expressions -> expression statement_end : ['$1'].
+expressions -> expression ';' expressions : ['$1' | '$3'].
+expressions -> expression ';' : ['$1'].
 expressions -> expression : ['$1'].
 
 % Literals

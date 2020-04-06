@@ -12,6 +12,7 @@ defmodule Basex.Evaluator.IndexingTest do
     # Arrays
     {"[1,2,3][0]", 1},
     {"[1 + 1][0]", 2},
+    {"[[42]][0][0]", 42},
     {"[1,2,3][1 + 1]", 3},
     {"$foo <- [1,2,3]; $foo[0]", 1},
     {"[1,2,3][42]", :out_of_bounds}

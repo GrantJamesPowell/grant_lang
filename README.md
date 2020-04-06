@@ -31,7 +31,6 @@ Regular expression : Erlang code.
 
 # TODO
 
-- [ ] Negative Numbers
 - [ ] Strings
   - [x] Double quote single line
   - [ ] Heredoc
@@ -76,6 +75,7 @@ Regular expression : Erlang code.
 - [x] $foo++ $foo-- operators
 - [x] $foo ||= $bar operator
 - [x] ! negation operator
+- [x] Negative Numbers
 
 ## Sample
 
