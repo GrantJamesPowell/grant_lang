@@ -51,7 +51,9 @@ defmodule Basex.Parser.BasicTest do
     {"for $i <- [1,2,3] { $i + 1 }",
      [{:for, {{:var, "$i"}, {:var, :unused}}, {:array, [1, 2, 3]}, [{:+, {:var, "$i"}, 1}]}]},
     {"for $i, $v <- [1,2] { $i + $v }",
-     [{:for, {{:var, "$i"}, {:var, "$v"}}, {:array, [1, 2]}, [{:+, {:var, "$i"}, {:var, "$v"}}]}]}
+     [{:for, {{:var, "$i"}, {:var, "$v"}}, {:array, [1, 2]}, [{:+, {:var, "$i"}, {:var, "$v"}}]}]},
+    # While Loops
+    {"while (true) { 1 }", [{:while, true, [1]}]}
   ]
   |> Enum.each(fn {code, expected} ->
     test "It can parse literal \"#{code}\" into #{inspect(Macro.escape(expected))}" do

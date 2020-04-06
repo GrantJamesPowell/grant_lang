@@ -18,12 +18,13 @@ Rules.
 {BLOCK_COMMENT} : skip_token.
 
 % Keywords
-if   : {token, {'if', TokenLine}}.
-else : {token, {'else', TokenLine}}.
-for  : {token, {'for', TokenLine}}.
-\.   : {token, {dot, TokenLine}}.
-<-   : {token, {'<-', TokenLine}}.
-;    : {token, {statement_end, TokenLine}}.
+if    : {token, {'if', TokenLine}}.
+else  : {token, {'else', TokenLine}}.
+for   : {token, {'for', TokenLine}}.
+while : {token, {while, TokenLine}}.
+\.    : {token, {dot, TokenLine}}.
+<-    : {token, {'<-', TokenLine}}.
+;     : {token, {statement_end, TokenLine}}.
 
 % Literals
 nil      : {token, {nil, TokenLine}}.

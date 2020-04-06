@@ -2,7 +2,7 @@ Nonterminals variable block map_pairs expression expressions comma_seperated_exp
 Terminals '[' ']' '(' ')' '{' '}' ',' '<-'
    var int float nil bool string operator identifier
    map_start fat_right_arrow dot
-   'if' 'else' 'for' statement_end.
+   'if' 'else' 'for' while statement_end.
 
 Rootsymbol expressions.
 
@@ -32,6 +32,9 @@ expression -> 'if' expression block              : {'if', '$2', '$3', [nil]}.
 % For
 expression -> 'for' variable '<-' expression block : {'for', {'$2', {var, unused}}, '$4', '$5'}.
 expression -> 'for' variable ',' variable '<-' expression block : {'for', {'$2', '$4'}, '$6', '$7'}.
+
+% While
+expression -> while expression block : {while, '$2', '$3'}.
 
 % Code Blocks
 block -> '{' expressions '}' : '$2'.

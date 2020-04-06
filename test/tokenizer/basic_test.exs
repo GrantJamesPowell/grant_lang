@@ -110,7 +110,10 @@ defmodule Basex.Tokenizer.BasicTest do
        {:operator, 1, :+},
        {:int, 1, 1},
        {:"}", 1}
-     ]}
+     ]},
+    # While Loops
+    {"while (true) { 1 }",
+     [{:while, 1}, {:"(", 1}, {:bool, 1, true}, {:")", 1}, {:"{", 1}, {:int, 1, 1}, {:"}", 1}]}
   ]
   |> Enum.each(fn {test_case, expected} ->
     test "it tokenizes \"#{test_case}\" correctly" do
